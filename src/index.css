@@ -38,20 +38,43 @@ All colors MUST be HSL.
 
     --radius: 0.5rem;
 
+    /* Luxury Color Palette */
+    --gold-50: 45 100% 97%;
+    --gold-100: 45 96% 89%;
+    --gold-200: 44 91% 78%;
+    --gold-300: 43 89% 65%;
+    --gold-400: 42 87% 55%;
+    --gold-500: 41 88% 50%;
+    --gold-600: 38 92% 50%;
+    --gold-700: 32 95% 44%;
+    --gold-800: 26 90% 37%;
+    --gold-900: 22 82% 31%;
+
+    --luxury-black: 220 13% 9%;
+    --luxury-gray: 220 9% 46%;
+    --luxury-white: 0 0% 100%;
+
+    /* Gradients */
+    --gradient-gold: linear-gradient(135deg, hsl(var(--gold-400)), hsl(var(--gold-600)));
+    --gradient-luxury: linear-gradient(135deg, hsl(var(--luxury-black)), hsl(var(--luxury-gray)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--gold-50)), hsl(var(--gold-100)));
+
+    /* Shadows */
+    --shadow-luxury: 0 25px 50px -12px hsl(var(--luxury-black) / 0.25);
+    --shadow-gold: 0 10px 30px -10px hsl(var(--gold-600) / 0.3);
+    --shadow-elegant: 0 4px 20px -4px hsl(var(--luxury-black) / 0.15);
+
+    /* Transitions */
+    --transition-luxury: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.3s ease-out;
+
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -100,6 +123,77 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+@layer components {
+  /* Luxury Button Variants */
+  .btn-luxury {
+    @apply bg-gold-600 hover:bg-gold-700 text-luxury-white font-medium px-8 py-3 rounded-lg;
+    @apply shadow-gold hover:shadow-luxury transform hover:scale-105;
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .btn-outline-luxury {
+    @apply border-2 border-gold-600 text-gold-600 hover:bg-gold-600 hover:text-luxury-white;
+    @apply font-medium px-8 py-3 rounded-lg;
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .btn-ghost-luxury {
+    @apply text-luxury-black hover:bg-gold-50 hover:text-gold-800;
+    @apply font-medium px-6 py-2 rounded-lg;
+    @apply transition-all duration-300 ease-out;
+  }
+
+  /* Product Card Styles */
+  .product-card {
+    @apply bg-card rounded-xl overflow-hidden shadow-elegant;
+    @apply hover:shadow-luxury transform hover:scale-105;
+    @apply transition-all duration-500 ease-out;
+  }
+
+  .product-card:hover .product-image {
+    @apply scale-110;
+  }
+
+  .product-image {
+    @apply transition-transform duration-700 ease-out;
+  }
+
+  /* Luxury Text Styles */
+  .text-luxury-heading {
+    @apply font-serif text-luxury-black font-bold;
+  }
+
+  .text-luxury-body {
+    @apply font-sans text-luxury-gray;
+  }
+
+  /* Animation Classes */
+  .hover-lift {
+    @apply transform hover:scale-105 hover:-translate-y-2;
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .fade-in-up {
+    @apply opacity-0 translate-y-8;
+    animation: fade-in 0.6s ease-out forwards;
+  }
+
+  /* Shopping Cart Animations */
+  .cart-item-enter {
+    @apply animate-scale-in;
+  }
+
+  .cart-item-exit {
+    @apply animate-fade-out;
+  }
+
+  /* Luxury Loading States */
+  .luxury-skeleton {
+    @apply bg-gradient-to-r from-gold-100 via-gold-200 to-gold-100;
+    @apply animate-shimmer bg-[length:200%_100%];
   }
 }
