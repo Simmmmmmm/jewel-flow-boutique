@@ -131,8 +131,9 @@ All colors MUST be HSL.
   /* Luxury Button Variants */
   .btn-luxury {
     @apply bg-gold-600 hover:bg-gold-700 text-luxury-white font-medium px-8 py-3 rounded-lg;
-    @apply shadow-gold hover:shadow-luxury transform hover:scale-105;
+    @apply hover:shadow-luxury transform hover:scale-105;
     @apply transition-all duration-300 ease-out;
+    box-shadow: 0 10px 30px -10px hsl(var(--gold-600) / 0.3);
   }
 
   .btn-outline-luxury {
