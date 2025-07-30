@@ -131,28 +131,33 @@ All colors MUST be HSL.
   /* Luxury Button Variants */
   .btn-luxury {
     @apply bg-gold-600 hover:bg-gold-700 text-luxury-white font-medium px-8 py-3 rounded-lg;
-    @apply hover:shadow-luxury transform hover:scale-105;
-    @apply transition-all duration-300 ease-out;
+    @apply transform hover:scale-105 transition-all duration-300 ease-out;
     box-shadow: 0 10px 30px -10px hsl(var(--gold-600) / 0.3);
+  }
+
+  .btn-luxury:hover {
+    box-shadow: 0 25px 50px -12px hsl(var(--luxury-black) / 0.25);
   }
 
   .btn-outline-luxury {
     @apply border-2 border-gold-600 text-gold-600 hover:bg-gold-600 hover:text-luxury-white;
-    @apply font-medium px-8 py-3 rounded-lg;
-    @apply transition-all duration-300 ease-out;
+    @apply font-medium px-8 py-3 rounded-lg transition-all duration-300 ease-out;
   }
 
   .btn-ghost-luxury {
     @apply text-luxury-black hover:bg-gold-50 hover:text-gold-800;
-    @apply font-medium px-6 py-2 rounded-lg;
-    @apply transition-all duration-300 ease-out;
+    @apply font-medium px-6 py-2 rounded-lg transition-all duration-300 ease-out;
   }
 
   /* Product Card Styles */
   .product-card {
-    @apply bg-card rounded-xl overflow-hidden shadow-elegant;
-    @apply hover:shadow-luxury transform hover:scale-105;
-    @apply transition-all duration-500 ease-out;
+    @apply bg-card rounded-xl overflow-hidden;
+    @apply hover:scale-105 transform transition-all duration-500 ease-out;
+    box-shadow: 0 4px 20px -4px hsl(var(--luxury-black) / 0.15);
+  }
+
+  .product-card:hover {
+    box-shadow: 0 25px 50px -12px hsl(var(--luxury-black) / 0.25);
   }
 
   .product-card:hover .product-image {
@@ -196,5 +201,14 @@ All colors MUST be HSL.
   .luxury-skeleton {
     @apply bg-gradient-to-r from-gold-100 via-gold-200 to-gold-100;
     @apply animate-shimmer bg-[length:200%_100%];
+  }
+
+  /* Shadow Utilities */
+  .shadow-elegant {
+    box-shadow: 0 4px 20px -4px hsl(var(--luxury-black) / 0.15);
+  }
+
+  .shadow-luxury {
+    box-shadow: 0 25px 50px -12px hsl(var(--luxury-black) / 0.25);
   }
 }
