@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Filter, Grid, List, SlidersHorizontal } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 import { products, categories } from '../data/products';
 import ProductCard from '../components/ProductCard';
 import { Button } from '../components/ui/button';
@@ -10,9 +11,21 @@ const Shop = () => {
   const [sortBy, setSortBy] = useState('featured');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 5000]);
+  const location = useLocation();
+  const searchTerm = useMemo(() => new URLSearchParams(location.search).get('search')?.toLowerCase() ?? '', [location.search]);
 
   const filteredProducts = useMemo(() => {
     let filtered = products;
+
+    // Search filter
+    if (searchTerm) {
+      const q = searchTerm;
+      filtered = filtered.filter(product =>
+        product.name.toLowerCase().includes(q) ||
+        product.description.toLowerCase().includes(q) ||
+        product.category.toLowerCase().includes(q)
+      );
+    }
 
     // Filter by category
     if (selectedCategory !== 'All') {
@@ -44,7 +57,7 @@ const Shop = () => {
     }
 
     return filtered;
-  }, [selectedCategory, sortBy, priceRange]);
+  }, [selectedCategory, sortBy, priceRange, searchTerm]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gold-50 to-luxury-white">

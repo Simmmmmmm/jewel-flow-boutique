@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Product } from '../contexts/CartContext';
 import { useCart } from '../contexts/CartContext';
 import { Button } from './ui/button';
+import { useWishlist } from '@/contexts/WishlistContext';
 
 interface ProductCardProps {
   product: Product;
@@ -12,6 +13,8 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product, className = '' }) => {
   const { addItem } = useCart();
+  const { toggle, isWishlisted } = useWishlist();
+  const wished = isWishlisted(product.id);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -40,13 +43,17 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, className = '' }) =>
           {/* Wishlist Button */}
           <button
             className="absolute top-4 right-4 p-2 bg-luxury-white rounded-full shadow-elegant opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
+            aria-label={wished ? 'Remove from wishlist' : 'Add to wishlist'}
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              // Handle wishlist toggle
+              toggle(product.id);
             }}
           >
-            <Heart className="w-4 h-4 text-luxury-gray hover:text-gold-600 transition-colors" />
+            <Heart
+              className={`w-4 h-4 transition-colors ${wished ? 'text-gold-600' : 'text-luxury-gray hover:text-gold-600'}`}
+              style={{ fill: wished ? 'currentColor' : 'none' }}
+            />
           </button>
 
           {/* Quick Add Button */}
