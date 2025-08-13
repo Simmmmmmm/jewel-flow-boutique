@@ -7,7 +7,7 @@ const Wishlist: React.FC = () => {
   const { ids } = useWishlist();
 
   useEffect(() => {
-    document.title = 'Wishlist | Luxe Jewelry';
+    document.title = 'Wishlist | Artlery';
   }, []);
 
   const wishlistProducts = useMemo(() => products.filter((p) => ids.includes(p.id)), [ids]);

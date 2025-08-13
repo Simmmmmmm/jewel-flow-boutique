@@ -23,7 +23,7 @@ const Index = () => {
     {
       name: 'Emily Davis',
       rating: 5,
-      text: 'The pearl earrings are even more beautiful in person. Luxe Jewelry exceeded my expectations!',
+      text: 'The pearl earrings are even more beautiful in person. Artlery exceeded my expectations!',
       product: 'Pearl Earrings'
     }
   ];
@@ -91,7 +91,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-luxury-heading text-3xl md:text-4xl font-serif font-bold mb-4">
-              Why Choose Luxe Jewelry
+              Why Choose Artlery
             </h2>
             <p className="text-luxury-body text-lg max-w-2xl mx-auto">
               Experience the difference that comes with true craftsmanship and dedication to excellence.

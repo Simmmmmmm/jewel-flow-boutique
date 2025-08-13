@@ -13,7 +13,7 @@ const Signup: React.FC = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    document.title = 'Sign Up | Luxe Jewelry';
+    document.title = 'Sign Up | Artlery';
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -35,7 +35,7 @@ const Signup: React.FC = () => {
       <article className="bg-luxury-white rounded-xl shadow-elegant p-8 w-full max-w-md">
         <header className="mb-6 text-center">
           <h1 className="text-luxury-heading text-3xl font-serif font-bold">Create Account</h1>
-          <p className="text-luxury-body mt-2">Join Luxe Jewelry for a premium experience</p>
+          <p className="text-luxury-body mt-2">Join Artlery for a premium experience</p>
         </header>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>

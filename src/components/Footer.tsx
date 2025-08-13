@@ -11,9 +11,9 @@ const Footer = () => {
           <div>
             <div className="flex items-center space-x-2 mb-4">
               <div className="w-8 h-8 bg-gradient-to-br from-gold-400 to-gold-600 rounded-full flex items-center justify-center">
-                <span className="text-luxury-white font-bold text-sm">L</span>
+                <span className="text-luxury-white font-bold text-sm">A</span>
               </div>
-              <span className="text-xl font-serif font-bold">Luxe Jewelry</span>
+              <span className="text-xl font-serif font-bold">Artlery</span>
             </div>
             <p className="text-luxury-white/80 mb-4">
               Exquisite handcrafted jewelry for life's precious moments.
@@ -68,7 +68,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-luxury-white/20 mt-8 pt-8 text-center text-luxury-white/60">
-          <p>&copy; 2024 Luxe Jewelry. All rights reserved.</p>
+          <p>&copy; 2024 Artlery. All rights reserved.</p>
         </div>
       </div>
     </footer>

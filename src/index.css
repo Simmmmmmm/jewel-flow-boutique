@@ -68,14 +68,15 @@ All colors MUST be HSL.
     --transition-luxury: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-smooth: all 0.3s ease-out;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Dark Theme Sidebar Colors */
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 41 88% 50%;
+    --sidebar-primary-foreground: 240 5.9% 10%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 41 88% 50%;
   }
 
   .dark {
@@ -125,6 +126,14 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground font-sans;
   }
+
+  html {
+    @apply bg-background;
+  }
+
+  * {
+    @apply border-border;
+  }
 }
 
 @layer components {
@@ -162,15 +171,15 @@ All colors MUST be HSL.
     @apply disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
-  /* Product Card Styles */
+  /* Product Card Dark Theme Styles */
   .product-card {
-    @apply bg-card rounded-xl overflow-hidden;
+    @apply bg-card border border-border rounded-xl overflow-hidden;
     @apply hover:scale-105 transform transition-all duration-500 ease-out;
-    box-shadow: 0 4px 20px -4px hsl(var(--luxury-black) / 0.15);
+    box-shadow: 0 4px 20px -4px hsl(var(--foreground) / 0.1);
   }
 
   .product-card:hover {
-    box-shadow: 0 25px 50px -12px hsl(var(--luxury-black) / 0.25);
+    box-shadow: 0 25px 50px -12px hsl(var(--foreground) / 0.15);
   }
 
   .product-card:hover .product-image {
@@ -181,13 +190,13 @@ All colors MUST be HSL.
     @apply transition-transform duration-700 ease-out;
   }
 
-  /* Luxury Text Styles */
+  /* Dark Theme Text Styles */
   .text-luxury-heading {
-    @apply font-serif text-luxury-black font-bold;
+    @apply font-serif text-foreground font-bold;
   }
 
   .text-luxury-body {
-    @apply font-sans text-luxury-gray;
+    @apply font-sans text-muted-foreground;
   }
 
   /* Animation Classes */

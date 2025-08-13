@@ -14,13 +14,13 @@ const Contact: React.FC = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    document.title = 'Contact Us | Luxe Jewelry';
+    document.title = 'Contact Us | Artlery';
 
     // Inject simple JSON-LD for SEO
     const jsonLd = {
       '@context': 'https://schema.org',
       '@type': 'Organization',
-      name: 'Luxe Jewelry',
+      name: 'Artlery',
       url: window.location.origin,
       contactPoint: [
         {

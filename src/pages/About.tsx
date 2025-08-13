@@ -47,16 +47,16 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gold-50 to-luxury-white">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <div className="bg-luxury-white shadow-elegant">
+      <div className="bg-card border-b border-border shadow-elegant">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center">
             <h1 className="text-luxury-heading text-4xl md:text-6xl font-serif font-bold mb-6">
               Our Story
             </h1>
             <p className="text-luxury-body text-xl max-w-3xl mx-auto leading-relaxed">
-              For over a decade, Luxe Jewelry has been creating extraordinary pieces that celebrate 
+              For over a decade, Artlery has been creating extraordinary pieces that celebrate 
               life's most precious moments. Founded on principles of excellence, integrity, and 
               timeless beauty.
             </p>
@@ -73,7 +73,7 @@ const About = () => {
             </h2>
             <div className="space-y-4 text-luxury-body leading-relaxed">
               <p>
-                Founded in 2013 by master jeweler Elena Rodriguez, Luxe Jewelry began as a small 
+                Founded in 2013 by master jeweler Elena Rodriguez, Artlery began as a small 
                 workshop with a simple mission: to create jewelry that tells your unique story. 
                 What started as a passion project has grown into a renowned atelier known for 
                 exceptional craftsmanship and personalized service.
@@ -96,9 +96,9 @@ const About = () => {
             <div className="aspect-[4/3] bg-gradient-to-br from-gold-100 to-gold-200 rounded-2xl shadow-luxury flex items-center justify-center">
               <div className="text-center text-gold-700">
                 <div className="w-32 h-32 mx-auto mb-4 bg-gold-300 rounded-full flex items-center justify-center">
-                  <span className="text-4xl font-serif font-bold">LJ</span>
+                  <span className="text-4xl font-serif font-bold">A</span>
                 </div>
-                <p className="text-lg font-medium">Atelier Workshop</p>
+                <p className="text-lg font-medium">Artlery Workshop</p>
               </div>
             </div>
           </div>
@@ -121,7 +121,7 @@ const About = () => {
               return (
                 <div
                   key={value.title}
-                  className="text-center bg-luxury-white rounded-xl shadow-elegant p-6 hover:shadow-luxury transition-all duration-300 animate-fade-in"
+                  className="text-center bg-card border border-border rounded-xl shadow-elegant p-6 hover:shadow-luxury transition-all duration-300 animate-fade-in"
                   style={{ animationDelay: `${index * 200}ms` }}
                 >
                   <div className="w-16 h-16 mx-auto mb-4 bg-gold-100 rounded-full flex items-center justify-center">
@@ -154,11 +154,11 @@ const About = () => {
             {team.map((member, index) => (
               <div
                 key={member.name}
-                className="text-center bg-luxury-white rounded-xl shadow-elegant p-8 hover:shadow-luxury transition-all duration-300 animate-fade-in"
+                className="text-center bg-card border border-border rounded-xl shadow-elegant p-8 hover:shadow-luxury transition-all duration-300 animate-fade-in"
                 style={{ animationDelay: `${index * 200}ms` }}
               >
                 <div className="w-24 h-24 mx-auto mb-4 bg-gradient-to-br from-gold-400 to-gold-600 rounded-full flex items-center justify-center">
-                  <span className="text-2xl font-serif font-bold text-luxury-white">
+                  <span className="text-2xl font-serif font-bold text-background">
                     {member.name.split(' ').map(n => n[0]).join('')}
                   </span>
                 </div>
@@ -177,10 +177,10 @@ const About = () => {
 
         {/* Commitment Section */}
         <div className="bg-gradient-to-r from-gold-600 to-gold-700 rounded-2xl shadow-luxury p-8 lg:p-12 text-center">
-          <h2 className="text-luxury-white text-3xl md:text-4xl font-serif font-bold mb-6">
+          <h2 className="text-background text-3xl md:text-4xl font-serif font-bold mb-6">
             Our Commitment to You
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-luxury-white">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-background">
             <div>
               <div className="text-4xl font-bold mb-2">100%</div>
               <div className="text-sm">Satisfaction Guarantee</div>
