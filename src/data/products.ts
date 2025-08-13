@@ -5,6 +5,14 @@ import pearlEarrings from '../assets/pearl-earrings.jpg';
 import goldBracelet from '../assets/gold-bracelet.jpg';
 import roseGoldWatch from '../assets/rose-gold-watch.jpg';
 import sapphireRing from '../assets/sapphire-ring.jpg';
+import emeraldNecklace from '../assets/emerald-necklace.jpg';
+import silverBracelet from '../assets/silver-bracelet.jpg';
+import luxuryWatch from '../assets/luxury-watch.jpg';
+import rubyRing from '../assets/ruby-ring.jpg';
+import diamondEarrings from '../assets/diamond-earrings.jpg';
+import platinumBracelet from '../assets/platinum-bracelet.jpg';
+import vintageNecklace from '../assets/vintage-necklace.jpg';
+import modernWatch from '../assets/modern-watch.jpg';
 
 export const products: Product[] = [
   {
@@ -72,6 +80,138 @@ export const products: Product[] = [
     inStock: true,
     rating: 4.9,
     reviews: 84,
+  },
+  {
+    id: '7',
+    name: 'Emerald Elegance Necklace',
+    price: 1599,
+    image: emeraldNecklace,
+    category: 'Necklaces',
+    description: 'Stunning emerald necklace with intricate gold detailing. A masterpiece of fine jewelry craftsmanship.',
+    inStock: true,
+    rating: 4.8,
+    reviews: 67,
+  },
+  {
+    id: '8',
+    name: 'Silver Chain Bracelet',
+    price: 599,
+    image: silverBracelet,
+    category: 'Bracelets',
+    description: 'Elegant sterling silver bracelet with modern design. Perfect for contemporary style enthusiasts.',
+    inStock: true,
+    rating: 4.6,
+    reviews: 142,
+  },
+  {
+    id: '9',
+    name: 'Luxury Swiss Watch',
+    price: 4999,
+    image: luxuryWatch,
+    category: 'Watches',
+    description: 'Premium Swiss-made luxury watch with automatic movement. The epitome of horological excellence.',
+    inStock: true,
+    rating: 4.9,
+    reviews: 45,
+  },
+  {
+    id: '10',
+    name: 'Ruby Passion Ring',
+    price: 2199,
+    image: rubyRing,
+    category: 'Rings',
+    description: 'Magnificent ruby ring with diamond setting. A bold statement of luxury and sophistication.',
+    inStock: true,
+    rating: 4.8,
+    reviews: 98,
+  },
+  {
+    id: '11',
+    name: 'Diamond Drop Earrings',
+    price: 1799,
+    image: diamondEarrings,
+    category: 'Earrings',
+    description: 'Breathtaking diamond drop earrings in white gold. Perfect for special occasions and celebrations.',
+    inStock: true,
+    rating: 4.9,
+    reviews: 78,
+  },
+  {
+    id: '12',
+    name: 'Platinum Tennis Bracelet',
+    price: 3299,
+    image: platinumBracelet,
+    category: 'Bracelets',
+    description: 'Exquisite platinum bracelet with continuous diamonds. The ultimate luxury bracelet for discerning tastes.',
+    inStock: true,
+    rating: 4.9,
+    reviews: 56,
+  },
+  {
+    id: '13',
+    name: 'Vintage Art Deco Necklace',
+    price: 2799,
+    image: vintageNecklace,
+    category: 'Necklaces',
+    description: 'Authentic vintage-inspired Art Deco necklace with intricate patterns. A timeless piece of jewelry history.',
+    inStock: true,
+    rating: 4.7,
+    reviews: 89,
+  },
+  {
+    id: '14',
+    name: 'Modern Chronograph Watch',
+    price: 2599,
+    image: modernWatch,
+    category: 'Watches',
+    description: 'Contemporary chronograph watch with premium materials. Perfect blend of style and functionality.',
+    inStock: true,
+    rating: 4.6,
+    reviews: 134,
+  },
+  {
+    id: '15',
+    name: 'Black Diamond Stud Earrings',
+    price: 899,
+    image: pearlEarrings,
+    category: 'Earrings',
+    description: 'Unique black diamond stud earrings in rose gold. A modern twist on classic elegance.',
+    inStock: false,
+    rating: 4.8,
+    reviews: 23,
+  },
+  {
+    id: '16',
+    name: 'Celtic Knot Ring',
+    price: 749,
+    image: sapphireRing,
+    category: 'Rings',
+    description: 'Traditional Celtic knot ring in sterling silver. Symbolic design with cultural significance.',
+    inStock: true,
+    rating: 4.5,
+    reviews: 167,
+  },
+  {
+    id: '17',
+    name: 'Pearl Strand Necklace',
+    price: 1299,
+    image: goldNecklace,
+    category: 'Necklaces',
+    description: 'Classic pearl strand necklace with gold clasp. Timeless elegance for any wardrobe.',
+    inStock: true,
+    rating: 4.7,
+    reviews: 201,
+  },
+  {
+    id: '18',
+    name: 'Luxury Sports Watch',
+    price: 3899,
+    image: roseGoldWatch,
+    category: 'Watches',
+    description: 'High-end sports watch with titanium construction. Built for performance and luxury.',
+    inStock: true,
+    rating: 4.8,
+    reviews: 87,
   },
 ];
 

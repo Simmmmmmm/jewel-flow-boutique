@@ -29,7 +29,7 @@ const Hero = () => {
           </div>
 
           {/* Heading */}
-          <h1 className="text-luxury-white font-serif text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 animate-fade-in">
+          <h1 className="text-foreground font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 animate-fade-in">
             Exquisite
             <span className="block text-transparent bg-gradient-to-r from-gold-400 to-gold-600 bg-clip-text">
               Jewelry
@@ -38,7 +38,7 @@ const Hero = () => {
           </h1>
 
           {/* Description */}
-          <p className="text-luxury-white/90 text-lg md:text-xl leading-relaxed mb-8 animate-fade-in">
+          <p className="text-muted-foreground text-base sm:text-lg md:text-xl leading-relaxed mb-8 animate-fade-in">
             Discover our curated collection of handcrafted jewelry pieces. 
             Each item tells a story of elegance, craftsmanship, and timeless beauty.
           </p>
@@ -46,7 +46,7 @@ const Hero = () => {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 animate-fade-in">
             <Link to="/shop">
-              <Button className="btn-luxury group px-8 py-4 text-lg">
+              <Button variant="luxury" className="px-8 py-4 text-lg group">
                 Shop Collection
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
@@ -54,8 +54,8 @@ const Hero = () => {
             
             <Link to="/collections">
               <Button
-                variant="outline"
-                className="btn-outline-luxury px-8 py-4 text-lg border-2 border-luxury-white text-luxury-white hover:bg-luxury-white hover:text-luxury-black"
+                variant="outline-luxury"
+                className="px-8 py-4 text-lg"
               >
                 View Collections
               </Button>
@@ -63,28 +63,28 @@ const Hero = () => {
           </div>
 
           {/* Stats */}
-          <div className="flex items-center space-x-8 mt-12 animate-fade-in">
+          <div className="grid grid-cols-3 gap-4 sm:gap-8 mt-12 animate-fade-in">
             <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-gold-400 font-serif">
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-gold-400 font-serif">
                 1000+
               </div>
-              <div className="text-luxury-white/80 text-sm">
+              <div className="text-muted-foreground text-xs sm:text-sm">
                 Happy Customers
               </div>
             </div>
             <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-gold-400 font-serif">
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-gold-400 font-serif">
                 500+
               </div>
-              <div className="text-luxury-white/80 text-sm">
+              <div className="text-muted-foreground text-xs sm:text-sm">
                 Unique Pieces
               </div>
             </div>
             <div className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-gold-400 font-serif">
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold text-gold-400 font-serif">
                 10+
               </div>
-              <div className="text-luxury-white/80 text-sm">
+              <div className="text-muted-foreground text-xs sm:text-sm">
                 Years Experience
               </div>
             </div>

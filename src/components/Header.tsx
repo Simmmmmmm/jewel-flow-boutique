@@ -27,27 +27,27 @@ const Header = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className="bg-luxury-white shadow-elegant sticky top-0 z-50">
+    <header className="bg-background border-b border-border shadow-elegant sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-gradient-to-br from-gold-400 to-gold-600 rounded-full flex items-center justify-center">
-              <span className="text-luxury-white font-bold text-sm">L</span>
+              <span className="text-background font-bold text-sm">L</span>
             </div>
-            <span className="text-luxury-heading text-xl font-serif font-bold">
+            <span className="text-foreground text-xl font-serif font-bold">
               Luxe Jewelry
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
+          <nav className="hidden md:flex space-x-2">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
-                className={`btn-ghost-luxury ${
-                  isActive(item.href) ? 'text-gold-600' : ''
+                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all hover:bg-accent hover:text-accent-foreground ${
+                  isActive(item.href) ? 'text-gold-500 bg-gold-900/20' : 'text-foreground'
                 }`}
               >
                 {item.name}
@@ -58,7 +58,7 @@ const Header = () => {
           {/* Search Bar */}
           <div className="hidden lg:flex items-center max-w-md mx-8 flex-1">
             <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-luxury-gray w-4 h-4" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
               <Input
                 type="search"
                 placeholder="Search jewelry..."
@@ -69,26 +69,26 @@ const Header = () => {
                     navigate(`/shop?search=${encodeURIComponent(searchQuery.trim())}`);
                   }
                 }}
-                className="pl-10 pr-4 py-2 w-full bg-gold-50 border-gold-200 focus:border-gold-400"
+                className="pl-10 pr-4 py-2 w-full bg-card border-border focus:border-gold-500"
               />
             </div>
           </div>
 
           {/* Action Icons */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-4">
             {/* Mobile Search */}
             <button
-              className="lg:hidden p-2 text-luxury-gray hover:text-gold-600 transition-colors"
+              className="lg:hidden p-2 text-muted-foreground hover:text-gold-500 transition-colors"
               onClick={() => setIsSearchOpen(!isSearchOpen)}
             >
               <Search className="w-5 h-5" />
             </button>
 
             {/* Wishlist */}
-            <Link to="/wishlist" className="relative p-2 text-luxury-gray hover:text-gold-600 transition-colors">
+            <Link to="/wishlist" className="relative p-2 text-muted-foreground hover:text-gold-500 transition-colors">
               <Heart className="w-5 h-5" />
               {wishlistIds.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-gold-600 text-luxury-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium animate-scale-in">
+                <span className="absolute -top-1 -right-1 bg-gold-500 text-background text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium animate-scale-in">
                   {wishlistIds.length}
                 </span>
               )}
@@ -98,13 +98,13 @@ const Header = () => {
             {user ? (
               <button
                 onClick={signOut}
-                className="p-2 text-luxury-gray hover:text-gold-600 transition-colors"
+                className="p-2 text-muted-foreground hover:text-gold-500 transition-colors"
                 title="Sign out"
               >
                 <LogOut className="w-5 h-5" />
               </button>
             ) : (
-              <Link to="/login" className="p-2 text-luxury-gray hover:text-gold-600 transition-colors">
+              <Link to="/login" className="p-2 text-muted-foreground hover:text-gold-500 transition-colors">
                 <User className="w-5 h-5" />
               </Link>
             )}
@@ -112,11 +112,11 @@ const Header = () => {
             {/* Cart */}
             <button
               onClick={toggleCart}
-              className="relative p-2 text-luxury-gray hover:text-gold-600 transition-colors"
+              className="relative p-2 text-muted-foreground hover:text-gold-500 transition-colors"
             >
               <ShoppingBag className="w-5 h-5" />
               {state.itemCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-gold-600 text-luxury-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium animate-scale-in">
+                <span className="absolute -top-1 -right-1 bg-gold-500 text-background text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium animate-scale-in">
                   {state.itemCount}
                 </span>
               )}
@@ -124,7 +124,7 @@ const Header = () => {
 
             {/* Mobile Menu Toggle */}
             <button
-              className="md:hidden p-2 text-luxury-gray hover:text-gold-600 transition-colors"
+              className="md:hidden p-2 text-muted-foreground hover:text-gold-500 transition-colors"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -134,9 +134,9 @@ const Header = () => {
 
         {/* Mobile Search */}
         {isSearchOpen && (
-          <div className="lg:hidden py-4 border-t border-gold-100 animate-slide-up">
+          <div className="lg:hidden py-4 border-t border-border animate-slide-up">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-luxury-gray w-4 h-4" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
               <Input
                 type="search"
                 placeholder="Search jewelry..."
@@ -148,7 +148,7 @@ const Header = () => {
                     setIsSearchOpen(false);
                   }
                 }}
-                className="pl-10 pr-4 py-2 w-full bg-gold-50 border-gold-200 focus:border-gold-400"
+                className="pl-10 pr-4 py-2 w-full bg-card border-border focus:border-gold-500"
               />
             </div>
           </div>
@@ -156,14 +156,14 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gold-100 animate-slide-up">
+          <div className="md:hidden py-4 border-t border-border animate-slide-up">
             <nav className="flex flex-col space-y-2">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`block px-4 py-2 text-luxury-body hover:text-gold-600 hover:bg-gold-50 rounded-lg transition-all ${
-                    isActive(item.href) ? 'text-gold-600 bg-gold-50' : ''
+                  className={`block px-4 py-3 text-foreground hover:text-gold-500 hover:bg-accent rounded-lg transition-all ${
+                    isActive(item.href) ? 'text-gold-500 bg-gold-900/20' : ''
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
