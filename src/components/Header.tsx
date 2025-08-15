@@ -56,12 +56,12 @@ const Header = () => {
           </nav>
 
           {/* Search Bar */}
-          <div className="hidden lg:flex items-center max-w-md mx-8 flex-1">
+          <div className="hidden lg:flex items-center max-w-xs mx-4 flex-1">
             <div className="relative w-full">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
               <Input
                 type="search"
-                placeholder="Search jewelry..."
+                placeholder="Search..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={(e) => {
@@ -69,13 +69,13 @@ const Header = () => {
                     navigate(`/shop?search=${encodeURIComponent(searchQuery.trim())}`);
                   }
                 }}
-                className="pl-10 pr-4 py-2 w-full bg-card border-border focus:border-gold-500"
+                className="pl-10 pr-4 py-1.5 w-full bg-card border-border focus:border-gold-500 text-sm h-9"
               />
             </div>
           </div>
 
           {/* Action Icons */}
-          <div className="flex items-center space-x-2 sm:space-x-4">
+          <div className="flex items-center space-x-1 sm:space-x-3">
             {/* Mobile Search */}
             <button
               className="lg:hidden p-2 text-muted-foreground hover:text-gold-500 transition-colors"
@@ -139,7 +139,7 @@ const Header = () => {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
               <Input
                 type="search"
-                placeholder="Search jewelry..."
+                placeholder="Search..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={(e) => {
@@ -148,7 +148,7 @@ const Header = () => {
                     setIsSearchOpen(false);
                   }
                 }}
-                className="pl-10 pr-4 py-2 w-full bg-card border-border focus:border-gold-500"
+                className="pl-10 pr-4 py-1.5 w-full bg-card border-border focus:border-gold-500 text-sm"
               />
             </div>
           </div>

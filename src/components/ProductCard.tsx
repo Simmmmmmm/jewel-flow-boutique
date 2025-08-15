@@ -30,10 +30,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, className = '' }) =>
   };
 
   return (
-    <div className={`product-card group cursor-pointer ${className}`}>
-      <Link to={`/product/${product.id}`}>
+    <div className={`bg-card border border-border rounded-xl shadow-elegant hover:shadow-luxury transition-all duration-500 group cursor-pointer h-full flex flex-col ${className}`}>
+      <Link to={`/product/${product.id}`} className="flex flex-col h-full">
         {/* Image Container */}
-        <div className="relative aspect-square overflow-hidden bg-gold-50">
+        <div className="relative aspect-square overflow-hidden bg-muted/50 rounded-t-xl flex-shrink-0">
           <img
             src={product.image}
             alt={product.name}
@@ -42,7 +42,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, className = '' }) =>
           
           {/* Wishlist Button */}
           <button
-            className="absolute top-4 right-4 p-2 bg-luxury-white rounded-full shadow-elegant opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
+            className="absolute top-4 right-4 p-2 bg-background/80 backdrop-blur-sm rounded-full shadow-elegant opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
             aria-label={wished ? 'Remove from wishlist' : 'Add to wishlist'}
             onClick={(e) => {
               e.preventDefault();
@@ -77,7 +77,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, className = '' }) =>
         </div>
 
         {/* Product Info */}
-        <div className="p-4">
+        <div className="p-4 flex-1 flex flex-col">
           {/* Category */}
           <p className="text-gold-600 text-sm font-medium mb-1">{product.category}</p>
           
@@ -105,8 +105,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, className = '' }) =>
             </span>
           </div>
           
+          {/* Description Preview */}
+          <p className="text-luxury-body text-sm mb-4 line-clamp-2 flex-1">
+            {product.description}
+          </p>
+          
           {/* Price */}
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between mt-auto">
             <p className="text-luxury-heading text-xl font-bold">
               {formatPrice(product.price)}
             </p>
@@ -123,11 +128,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, className = '' }) =>
               </Button>
             </div>
           </div>
-          
-          {/* Description Preview */}
-          <p className="text-luxury-body text-sm mt-2 line-clamp-2">
-            {product.description}
-          </p>
         </div>
       </Link>
     </div>

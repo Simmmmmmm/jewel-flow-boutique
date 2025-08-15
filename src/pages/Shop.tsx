@@ -60,9 +60,9 @@ const Shop = () => {
   }, [selectedCategory, sortBy, priceRange, searchTerm]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gold-50 to-luxury-white">
+    <div className="min-h-screen bg-background">
       {/* Page Header */}
-      <div className="bg-luxury-white shadow-elegant">
+      <div className="bg-card border-b border-border shadow-elegant">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="text-center">
             <h1 className="text-luxury-heading text-4xl md:text-5xl font-serif font-bold mb-4">
@@ -80,7 +80,7 @@ const Shop = () => {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Filters Sidebar */}
           <div className="lg:w-64 space-y-6">
-            <div className="bg-luxury-white p-6 rounded-xl shadow-elegant">
+            <div className="bg-card border border-border p-6 rounded-xl shadow-elegant">
               <h3 className="text-luxury-heading font-serif font-semibold mb-4 flex items-center">
                 <SlidersHorizontal className="w-5 h-5 mr-2 text-gold-600" />
                 Filters
@@ -157,7 +157,7 @@ const Shop = () => {
           {/* Products Section */}
           <div className="flex-1">
             {/* Controls Bar */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 bg-luxury-white p-4 rounded-xl shadow-elegant">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 bg-card border border-border p-4 rounded-xl shadow-elegant">
               <div className="flex items-center space-x-4 mb-4 sm:mb-0">
                 <span className="text-luxury-body">
                   {filteredProducts.length} products
@@ -209,7 +209,7 @@ const Shop = () => {
             {/* Products Grid */}
             <div className={`${
               viewMode === 'grid'
-                ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'
+                ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6'
                 : 'space-y-6'
             }`}>
               {filteredProducts.map((product, index) => (

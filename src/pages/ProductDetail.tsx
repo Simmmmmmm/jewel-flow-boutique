@@ -46,9 +46,9 @@ const ProductDetail = () => {
   const productImages = [product.image, product.image, product.image];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gold-50 to-luxury-white">
+    <div className="min-h-screen bg-background">
       {/* Breadcrumb */}
-      <div className="bg-luxury-white shadow-sm">
+      <div className="bg-card border-b border-border shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center space-x-2 text-sm">
             <Link to="/" className="text-luxury-body hover:text-gold-600">Home</Link>
@@ -78,7 +78,7 @@ const ProductDetail = () => {
           {/* Product Images */}
           <div className="space-y-4">
             {/* Main Image */}
-            <div className="aspect-square bg-luxury-white rounded-xl shadow-elegant overflow-hidden">
+            <div className="aspect-square bg-card border border-border rounded-xl shadow-elegant overflow-hidden">
               <img
                 src={productImages[selectedImage]}
                 alt={product.name}
@@ -92,7 +92,7 @@ const ProductDetail = () => {
                 <button
                   key={index}
                   onClick={() => setSelectedImage(index)}
-                  className={`aspect-square bg-luxury-white rounded-lg overflow-hidden shadow-sm transition-all ${
+                  className={`aspect-square bg-card border border-border rounded-lg overflow-hidden shadow-sm transition-all ${
                     selectedImage === index
                       ? 'ring-2 ring-gold-500 ring-offset-2'
                       : 'hover:shadow-elegant'
@@ -241,7 +241,7 @@ const ProductDetail = () => {
             <h2 className="text-luxury-heading text-2xl font-serif font-bold mb-8 text-center">
               You might also like
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
               {relatedProducts.map((relatedProduct) => (
                 <ProductCard key={relatedProduct.id} product={relatedProduct} />
               ))}

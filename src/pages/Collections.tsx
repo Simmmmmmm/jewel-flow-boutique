@@ -29,9 +29,9 @@ const Collections = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gold-50 to-luxury-white">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-luxury-white shadow-elegant">
+      <div className="bg-card border-b border-border shadow-elegant">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center">
             <h1 className="text-luxury-heading text-4xl md:text-6xl font-serif font-bold mb-6">
@@ -47,11 +47,11 @@ const Collections = () => {
 
       {/* Collections Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
           {collections.map((collection, index) => (
             <div
               key={collection.name}
-              className="group bg-luxury-white rounded-2xl shadow-elegant overflow-hidden hover:shadow-luxury transition-all duration-500 animate-fade-in"
+              className="group bg-card border border-border rounded-2xl shadow-elegant overflow-hidden hover:shadow-luxury transition-all duration-500 animate-fade-in"
               style={{ animationDelay: `${index * 200}ms` }}
             >
               {/* Collection Image */}
@@ -143,7 +143,7 @@ const Collections = () => {
         </div>
 
         {/* Newsletter Signup */}
-        <div className="mt-16 text-center bg-luxury-white rounded-2xl shadow-elegant p-8 lg:p-12">
+        <div className="mt-16 text-center bg-card border border-border rounded-2xl shadow-elegant p-8 lg:p-12">
           <h3 className="text-luxury-heading text-2xl md:text-3xl font-serif font-bold mb-4">
             Stay Updated
           </h3>
