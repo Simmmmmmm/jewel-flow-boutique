@@ -52,7 +52,7 @@ const Index = () => {
       <Hero />
 
       {/* Featured Products */}
-      <section className="py-16 bg-gradient-to-br from-gold-50 to-luxury-white">
+      <section className="py-16 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-luxury-heading text-3xl md:text-4xl font-serif font-bold mb-4">
@@ -63,7 +63,7 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 mb-12">
             {featuredProducts.map((product, index) => (
               <div
                 key={product.id}
@@ -87,7 +87,7 @@ const Index = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 bg-luxury-white">
+      <section className="py-16 bg-card border-y border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-luxury-heading text-3xl md:text-4xl font-serif font-bold mb-4">
@@ -98,13 +98,13 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             {features.map((feature, index) => {
               const IconComponent = feature.icon;
               return (
                 <div
                   key={feature.title}
-                  className="text-center p-8 rounded-xl bg-gradient-to-br from-gold-50 to-gold-100 hover:shadow-elegant transition-all duration-300 animate-fade-in"
+                  className="text-center p-6 lg:p-8 rounded-xl bg-card border border-border shadow-elegant hover:shadow-luxury transition-all duration-300 animate-fade-in"
                   style={{ animationDelay: `${index * 200}ms` }}
                 >
                   <div className="w-16 h-16 mx-auto mb-6 bg-gold-600 rounded-full flex items-center justify-center shadow-gold">
@@ -124,7 +124,7 @@ const Index = () => {
       </section>
 
       {/* Best Sellers */}
-      <section className="py-16 bg-gradient-to-br from-gold-50 to-luxury-white">
+      <section className="py-16 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-luxury-heading text-3xl md:text-4xl font-serif font-bold mb-4">
@@ -135,7 +135,7 @@ const Index = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
             {bestSellers.map((product, index) => (
               <div
                 key={product.id}
@@ -150,7 +150,7 @@ const Index = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-16 bg-luxury-white">
+      <section className="py-16 bg-card border-y border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-luxury-heading text-3xl md:text-4xl font-serif font-bold mb-4">
@@ -165,7 +165,7 @@ const Index = () => {
             {testimonials.map((testimonial, index) => (
               <div
                 key={testimonial.name}
-                className="bg-gold-50 rounded-xl p-8 shadow-elegant hover:shadow-luxury transition-all duration-300 animate-fade-in"
+                className="bg-card border border-border rounded-xl p-6 lg:p-8 shadow-elegant hover:shadow-luxury transition-all duration-300 animate-fade-in"
                 style={{ animationDelay: `${index * 200}ms` }}
               >
                 <div className="flex items-center mb-4">
@@ -176,7 +176,7 @@ const Index = () => {
                 <p className="text-luxury-body leading-relaxed mb-4 italic">
                   "{testimonial.text}"
                 </p>
-                <div className="border-t border-gold-200 pt-4">
+                <div className="border-t border-border pt-4">
                   <div className="font-semibold text-luxury-heading">{testimonial.name}</div>
                   <div className="text-gold-600 text-sm">{testimonial.product}</div>
                 </div>

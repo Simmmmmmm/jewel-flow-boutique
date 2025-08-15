@@ -56,8 +56,8 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gold-50 to-luxury-white">
-      <header className="bg-luxury-white shadow-elegant">
+    <div className="min-h-screen bg-background">
+      <header className="bg-card border-b border-border shadow-elegant">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 text-center">
           <h1 className="text-luxury-heading text-4xl md:text-5xl font-serif font-bold mb-3">Contact Us</h1>
           <p className="text-luxury-body max-w-2xl mx-auto">We'd love to hear from you. Send us a message and our team will respond within 24 hours.</p>
@@ -65,7 +65,7 @@ const Contact: React.FC = () => {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <section className="lg:col-span-2 bg-luxury-white rounded-xl shadow-elegant p-6 md:p-8">
+        <section className="lg:col-span-2 bg-card border border-border rounded-xl shadow-elegant p-6 md:p-8">
           <h2 className="text-luxury-heading text-2xl font-serif font-semibold mb-6">Send a Message</h2>
           <form onSubmit={onSubmit} className="space-y-5">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -93,16 +93,16 @@ const Contact: React.FC = () => {
         </section>
 
         <aside className="space-y-6">
-          <div className="bg-luxury-white rounded-xl shadow-elegant p-6">
+          <div className="bg-card border border-border rounded-xl shadow-elegant p-6">
             <h3 className="text-luxury-heading text-xl font-serif font-semibold mb-4">Contact Information</h3>
             <ul className="space-y-3 text-luxury-body">
-              <li className="flex items-start gap-3"><Mail className="w-5 h-5 text-gold-600 mt-0.5" /> support@luxe-jewelry.example</li>
-              <li className="flex items-start gap-3"><Phone className="w-5 h-5 text-gold-600 mt-0.5" /> +1 (000) 000-0000</li>
-              <li className="flex items-start gap-3"><MapPin className="w-5 h-5 text-gold-600 mt-0.5" /> 123 Luxury Ave, Suite 100, New York, NY</li>
+              <li className="flex items-start gap-3"><Mail className="w-5 h-5 text-primary mt-0.5" /> support@luxe-jewelry.example</li>
+              <li className="flex items-start gap-3"><Phone className="w-5 h-5 text-primary mt-0.5" /> +1 (000) 000-0000</li>
+              <li className="flex items-start gap-3"><MapPin className="w-5 h-5 text-primary mt-0.5" /> 123 Luxury Ave, Suite 100, New York, NY</li>
             </ul>
           </div>
-          <div className="bg-luxury-white rounded-xl shadow-elegant p-3 overflow-hidden">
-            <div className="aspect-[4/3] w-full bg-gold-50 grid place-items-center text-luxury-body">Map placeholder</div>
+          <div className="bg-card border border-border rounded-xl shadow-elegant p-3 overflow-hidden">
+            <div className="aspect-[4/3] w-full bg-muted/50 grid place-items-center text-luxury-body">Map placeholder</div>
           </div>
         </aside>
       </main>
