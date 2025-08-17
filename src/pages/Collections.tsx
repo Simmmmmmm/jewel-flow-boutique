@@ -5,7 +5,7 @@ import { Button } from '../components/ui/button';
 import { categories, products } from '../data/products';
 
 const Collections = () => {
-  const collections = categories.filter(cat => cat !== 'All').map(category => {
+  const collections = categories.map(category => {
     const categoryProducts = products.filter(p => p.category === category);
     const featuredProduct = categoryProducts[0];
     
@@ -106,41 +106,6 @@ const Collections = () => {
           ))}
         </div>
 
-        {/* Featured Collection Banner */}
-        <div className="mt-16 bg-gradient-to-r from-gold-600 to-gold-700 rounded-2xl shadow-luxury overflow-hidden">
-          <div className="grid grid-cols-1 lg:grid-cols-2 items-center">
-            <div className="p-8 lg:p-12">
-              <h2 className="text-luxury-white text-3xl md:text-4xl font-serif font-bold mb-4">
-                Limited Edition Collection
-              </h2>
-              <p className="text-luxury-white/90 text-lg mb-6 leading-relaxed">
-                Exclusive pieces crafted by our master artisans. Each item is numbered and comes 
-                with a certificate of authenticity.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button 
-                  className="bg-luxury-white text-gold-700 hover:bg-gold-50 font-semibold px-8 py-3"
-                >
-                  View Limited Edition
-                </Button>
-                <Button 
-                  variant="outline"
-                  className="border-2 border-luxury-white text-luxury-white hover:bg-luxury-white hover:text-gold-700"
-                >
-                  Learn More
-                </Button>
-              </div>
-            </div>
-            <div className="h-64 lg:h-80 bg-gold-500/20 flex items-center justify-center">
-              <div className="text-center text-luxury-white">
-                <div className="w-24 h-24 mx-auto mb-4 bg-luxury-white/20 rounded-full flex items-center justify-center">
-                  <span className="text-2xl font-serif font-bold">LE</span>
-                </div>
-                <p className="text-sm opacity-90">Coming Soon</p>
-              </div>
-            </div>
-          </div>
-        </div>
 
         {/* Newsletter Signup */}
         <div className="mt-16 text-center bg-card border border-border rounded-2xl shadow-elegant p-8 lg:p-12">

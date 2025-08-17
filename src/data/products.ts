@@ -216,7 +216,6 @@ export const products: Product[] = [
 ];
 
 export const categories = [
-  'All',
   'Rings',
   'Necklaces',
   'Earrings',

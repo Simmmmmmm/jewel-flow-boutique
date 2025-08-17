@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { Filter, Grid, List, SlidersHorizontal } from 'lucide-react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { Filter, Grid, SlidersHorizontal } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
 import { products, categories } from '../data/products';
 import ProductCard from '../components/ProductCard';
@@ -9,10 +9,18 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 const Shop = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [sortBy, setSortBy] = useState('featured');
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 5000]);
   const location = useLocation();
   const searchTerm = useMemo(() => new URLSearchParams(location.search).get('search')?.toLowerCase() ?? '', [location.search]);
+  
+  // Set category from URL parameter
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const categoryParam = urlParams.get('category');
+    if (categoryParam && categories.includes(categoryParam)) {
+      setSelectedCategory(categoryParam);
+    }
+  }, [location.search]);
 
   const filteredProducts = useMemo(() => {
     let filtered = products;
@@ -90,6 +98,16 @@ const Shop = () => {
               <div className="mb-6">
                 <h4 className="text-luxury-heading font-medium mb-3">Categories</h4>
                 <div className="space-y-2">
+                  <button
+                    onClick={() => setSelectedCategory('All')}
+                    className={`block w-full text-left px-3 py-2 rounded-lg transition-all ${
+                      selectedCategory === 'All'
+                        ? 'bg-gold-100 text-gold-800 font-medium'
+                        : 'text-luxury-body hover:bg-gold-50'
+                    }`}
+                  >
+                    All
+                  </button>
                   {categories.map((category) => (
                     <button
                       key={category}
@@ -163,28 +181,11 @@ const Shop = () => {
                   {filteredProducts.length} products
                 </span>
 
-                {/* View Mode Toggle */}
+                {/* View Mode - Grid Only */}
                 <div className="flex items-center border border-gold-200 rounded-lg">
-                  <button
-                    onClick={() => setViewMode('grid')}
-                    className={`p-2 rounded-l-lg transition-colors ${
-                      viewMode === 'grid'
-                        ? 'bg-gold-100 text-gold-800'
-                        : 'text-luxury-gray hover:bg-gold-50'
-                    }`}
-                  >
+                  <div className="p-2 rounded-lg bg-gold-100 text-gold-800">
                     <Grid className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={() => setViewMode('list')}
-                    className={`p-2 rounded-r-lg transition-colors ${
-                      viewMode === 'list'
-                        ? 'bg-gold-100 text-gold-800'
-                        : 'text-luxury-gray hover:bg-gold-50'
-                    }`}
-                  >
-                    <List className="w-4 h-4" />
-                  </button>
+                  </div>
                 </div>
               </div>
 
@@ -207,21 +208,14 @@ const Shop = () => {
             </div>
 
             {/* Products Grid */}
-            <div className={`${
-              viewMode === 'grid'
-                ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6'
-                : 'space-y-6'
-            }`}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
               {filteredProducts.map((product, index) => (
                 <div
                   key={product.id}
                   className="animate-fade-in"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <ProductCard
-                    product={product}
-                    className={viewMode === 'list' ? 'flex' : ''}
-                  />
+                  <ProductCard product={product} />
                 </div>
               ))}
             </div>
