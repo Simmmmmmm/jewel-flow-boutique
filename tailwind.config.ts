@@ -62,22 +62,22 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				gold: {
-					50: 'hsl(var(--gold-50))',
-					100: 'hsl(var(--gold-100))',
-					200: 'hsl(var(--gold-200))',
-					300: 'hsl(var(--gold-300))',
-					400: 'hsl(var(--gold-400))',
-					500: 'hsl(var(--gold-500))',
-					600: 'hsl(var(--gold-600))',
-					700: 'hsl(var(--gold-700))',
-					800: 'hsl(var(--gold-800))',
-					900: 'hsl(var(--gold-900))'
+				cyan: {
+					50: 'hsl(var(--cyan-50))',
+					100: 'hsl(var(--cyan-100))',
+					200: 'hsl(var(--cyan-200))',
+					300: 'hsl(var(--cyan-300))',
+					400: 'hsl(var(--cyan-400))',
+					500: 'hsl(var(--cyan-500))',
+					600: 'hsl(var(--cyan-600))',
+					700: 'hsl(var(--cyan-700))',
+					800: 'hsl(var(--cyan-800))',
+					900: 'hsl(var(--cyan-900))'
 				},
-				luxury: {
-					black: 'hsl(var(--luxury-black))',
-					gray: 'hsl(var(--luxury-gray))',
-					white: 'hsl(var(--luxury-white))'
+				dark: {
+					navy: 'hsl(var(--dark-navy))',
+					gray: 'hsl(var(--dark-gray))',
+					lightGray: 'hsl(var(--light-gray))'
 				}
 			},
 			borderRadius: {

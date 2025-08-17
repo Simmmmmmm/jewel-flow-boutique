@@ -32,11 +32,6 @@ const Login: React.FC = () => {
     <div className="min-h-screen bg-gradient-subtle flex items-center justify-center px-4 py-8">
       <article className="bg-card/90 backdrop-blur-sm rounded-2xl shadow-luxury border border-border p-8 w-full max-w-md">
         <header className="mb-8 text-center">
-          <div className="mb-4">
-            <div className="w-16 h-16 mx-auto bg-gradient-primary rounded-full flex items-center justify-center mb-4">
-              <span className="text-2xl font-bold text-white">A</span>
-            </div>
-          </div>
           <h1 className="text-foreground text-3xl font-serif font-bold mb-2">Welcome Back</h1>
           <p className="text-muted-foreground">Sign in to your Artlery account</p>
         </header>

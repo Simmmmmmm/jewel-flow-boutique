@@ -8,61 +8,61 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 210 10% 6%;
+    --foreground: 210 5% 78%;
 
-    --card: 217.2 32.6% 17.5%;
-    --card-foreground: 210 40% 98%;
+    --card: 210 20% 15%;
+    --card-foreground: 210 5% 78%;
 
-    --popover: 217.2 32.6% 17.5%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 210 20% 15%;
+    --popover-foreground: 210 5% 78%;
 
-    --primary: 41 88% 50%;
-    --primary-foreground: 222.2 84% 4.9%;
+    --primary: 175 95% 69%;
+    --primary-foreground: 210 10% 6%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 210 20% 15%;
+    --secondary-foreground: 210 5% 78%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 210 20% 15%;
+    --muted-foreground: 210 10% 50%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 177 38% 46%;
+    --accent-foreground: 210 5% 78%;
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 210 5% 78%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 41 88% 50%;
+    --border: 210 20% 25%;
+    --input: 210 20% 15%;
+    --ring: 175 95% 69%;
 
     --radius: 0.5rem;
 
-    /* Luxury Color Palette */
-    --gold-50: 45 100% 97%;
-    --gold-100: 45 96% 89%;
-    --gold-200: 44 91% 78%;
-    --gold-300: 43 89% 65%;
-    --gold-400: 42 87% 55%;
-    --gold-500: 41 88% 50%;
-    --gold-600: 38 92% 50%;
-    --gold-700: 32 95% 44%;
-    --gold-800: 26 90% 37%;
-    --gold-900: 22 82% 31%;
+    /* Cyan Color Palette */
+    --cyan-50: 175 100% 97%;
+    --cyan-100: 175 95% 89%;
+    --cyan-200: 175 90% 78%;
+    --cyan-300: 175 85% 65%;
+    --cyan-400: 175 80% 55%;
+    --cyan-500: 175 95% 69%;
+    --cyan-600: 177 38% 46%;
+    --cyan-700: 177 45% 35%;
+    --cyan-800: 177 50% 25%;
+    --cyan-900: 177 55% 15%;
 
-    --luxury-black: 220 13% 9%;
-    --luxury-gray: 220 9% 46%;
-    --luxury-white: 0 0% 100%;
+    --dark-navy: 210 10% 6%;
+    --dark-gray: 210 20% 15%;
+    --light-gray: 210 5% 78%;
 
     /* Gradients */
-    --gradient-gold: linear-gradient(135deg, hsl(var(--gold-400)), hsl(var(--gold-600)));
-    --gradient-luxury: linear-gradient(135deg, hsl(var(--luxury-black)), hsl(var(--luxury-gray)));
-    --gradient-hero: linear-gradient(135deg, hsl(var(--gold-50)), hsl(var(--gold-100)));
+    --gradient-primary: linear-gradient(135deg, hsl(var(--cyan-500)), hsl(var(--cyan-600)));
+    --gradient-subtle: linear-gradient(135deg, hsl(var(--dark-navy)), hsl(var(--dark-gray)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--dark-navy)), hsl(var(--cyan-900)));
 
     /* Shadows */
-    --shadow-luxury: 0 25px 50px -12px hsl(var(--luxury-black) / 0.25);
-    --shadow-gold: 0 10px 30px -10px hsl(var(--gold-600) / 0.3);
-    --shadow-elegant: 0 4px 20px -4px hsl(var(--luxury-black) / 0.15);
+    --shadow-luxury: 0 25px 50px -12px hsl(var(--dark-navy) / 0.25);
+    --shadow-cyan: 0 10px 30px -10px hsl(var(--cyan-600) / 0.3);
+    --shadow-elegant: 0 4px 20px -4px hsl(var(--dark-navy) / 0.15);
 
     /* Transitions */
     --transition-luxury: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -139,28 +139,28 @@ All colors MUST be HSL.
 @layer components {
   /* Dark Theme Button Variants */
   .btn-luxury {
-    @apply bg-gold-500 hover:bg-gold-400 text-background font-semibold px-8 py-3 rounded-lg;
+    @apply bg-primary hover:bg-accent text-primary-foreground font-semibold px-8 py-3 rounded-lg;
     @apply transform hover:scale-105 transition-all duration-300 ease-out;
-    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
     @apply disabled:opacity-50 disabled:cursor-not-allowed;
-    box-shadow: 0 10px 30px -10px hsl(var(--gold-500) / 0.4);
+    box-shadow: 0 10px 30px -10px hsl(var(--primary) / 0.4);
   }
 
   .btn-luxury:hover {
-    box-shadow: 0 25px 50px -12px hsl(var(--gold-400) / 0.3);
+    box-shadow: 0 25px 50px -12px hsl(var(--accent) / 0.3);
   }
 
   .btn-outline-luxury {
-    @apply border-2 border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-background;
+    @apply border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground;
     @apply font-semibold px-8 py-3 rounded-lg transition-all duration-300 ease-out;
-    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
     @apply disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
   .btn-ghost-luxury {
-    @apply text-foreground hover:bg-gold-900/20 hover:text-gold-400;
+    @apply text-foreground hover:bg-primary/20 hover:text-primary;
     @apply font-medium px-6 py-2 rounded-lg transition-all duration-300 ease-out;
-    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
     @apply disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
@@ -221,16 +221,16 @@ All colors MUST be HSL.
 
   /* Luxury Loading States */
   .luxury-skeleton {
-    @apply bg-gradient-to-r from-gold-100 via-gold-200 to-gold-100;
+    @apply bg-gradient-to-r from-cyan-100 via-cyan-200 to-cyan-100;
     @apply animate-shimmer bg-[length:200%_100%];
   }
 
   /* Shadow Utilities */
   .shadow-elegant {
-    box-shadow: 0 4px 20px -4px hsl(var(--luxury-black) / 0.15);
+    box-shadow: 0 4px 20px -4px hsl(var(--dark-navy) / 0.15);
   }
 
   .shadow-luxury {
-    box-shadow: 0 25px 50px -12px hsl(var(--luxury-black) / 0.25);
+    box-shadow: 0 25px 50px -12px hsl(var(--dark-navy) / 0.25);
   }
 }
