@@ -31,31 +31,67 @@ const Signup: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gold-50 to-luxury-white flex items-center justify-center px-4">
-      <article className="bg-luxury-white rounded-xl shadow-elegant p-8 w-full max-w-md">
-        <header className="mb-6 text-center">
-          <h1 className="text-luxury-heading text-3xl font-serif font-bold">Create Account</h1>
-          <p className="text-luxury-body mt-2">Join Artlery for a premium experience</p>
+    <div className="min-h-screen bg-gradient-subtle flex items-center justify-center px-4 py-8">
+      <article className="bg-card/90 backdrop-blur-sm rounded-2xl shadow-luxury border border-border p-8 w-full max-w-md">
+        <header className="mb-8 text-center">
+          <div className="mb-4">
+            <div className="w-16 h-16 mx-auto bg-gradient-primary rounded-full flex items-center justify-center mb-4">
+              <span className="text-2xl font-bold text-white">A</span>
+            </div>
+          </div>
+          <h1 className="text-foreground text-3xl font-serif font-bold mb-2">Join Artlery</h1>
+          <p className="text-muted-foreground">Create your premium jewelry account</p>
         </header>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="text-sm text-luxury-body">Email</label>
-            <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className="mt-1" />
+        
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-foreground">Email Address</label>
+            <Input 
+              type="email" 
+              value={email} 
+              onChange={(e) => setEmail(e.target.value)} 
+              required 
+              className="h-12 bg-background/50 border-border focus:border-primary transition-colors" 
+              placeholder="Enter your email"
+            />
           </div>
-          <div>
-            <label className="text-sm text-luxury-body">Password</label>
-            <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required className="mt-1" />
+          
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-foreground">Password</label>
+            <Input 
+              type="password" 
+              value={password} 
+              onChange={(e) => setPassword(e.target.value)} 
+              required 
+              className="h-12 bg-background/50 border-border focus:border-primary transition-colors" 
+              placeholder="Create a password"
+            />
           </div>
-          <div>
-            <label className="text-sm text-luxury-body">Confirm Password</label>
-            <Input type="password" value={confirm} onChange={(e) => setConfirm(e.target.value)} required className="mt-1" />
+          
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-foreground">Confirm Password</label>
+            <Input 
+              type="password" 
+              value={confirm} 
+              onChange={(e) => setConfirm(e.target.value)} 
+              required 
+              className="h-12 bg-background/50 border-border focus:border-primary transition-colors" 
+              placeholder="Confirm your password"
+            />
           </div>
-          <Button type="submit" className="w-full btn-luxury" disabled={loading}>
-            {loading ? 'Creating...' : 'Sign Up'}
+          
+          <Button type="submit" className="w-full h-12 btn-luxury text-base font-medium" disabled={loading}>
+            {loading ? 'Creating Account...' : 'Create Artlery Account'}
           </Button>
         </form>
-        <footer className="mt-4 text-center text-sm text-luxury-body">
-          Already have an account? <Link to="/login" className="text-gold-700 story-link">Log in</Link>
+        
+        <footer className="mt-8 text-center">
+          <p className="text-sm text-muted-foreground">
+            Already have an account?{' '}
+            <Link to="/login" className="text-primary hover:text-primary/80 font-medium transition-colors">
+              Sign in here
+            </Link>
+          </p>
         </footer>
       </article>
     </div>
