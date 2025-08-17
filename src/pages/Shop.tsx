@@ -7,7 +7,7 @@ import { Button } from '../components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 
 const Shop = () => {
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState('Rings');
   const [sortBy, setSortBy] = useState('featured');
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 5000]);
   const location = useLocation();
@@ -19,6 +19,8 @@ const Shop = () => {
     const categoryParam = urlParams.get('category');
     if (categoryParam && categories.includes(categoryParam)) {
       setSelectedCategory(categoryParam);
+    } else if (!categoryParam) {
+      setSelectedCategory('Rings');
     }
   }, [location.search]);
 
@@ -36,9 +38,7 @@ const Shop = () => {
     }
 
     // Filter by category
-    if (selectedCategory !== 'All') {
-      filtered = filtered.filter(product => product.category === selectedCategory);
-    }
+    filtered = filtered.filter(product => product.category === selectedCategory);
 
     // Filter by price range
     filtered = filtered.filter(
@@ -98,16 +98,6 @@ const Shop = () => {
               <div className="mb-6">
                 <h4 className="text-luxury-heading font-medium mb-3">Categories</h4>
                 <div className="space-y-2">
-                  <button
-                    onClick={() => setSelectedCategory('All')}
-                    className={`block w-full text-left px-3 py-2 rounded-lg transition-all ${
-                      selectedCategory === 'All'
-                        ? 'bg-gold-100 text-gold-800 font-medium'
-                        : 'text-luxury-body hover:bg-gold-50'
-                    }`}
-                  >
-                    All
-                  </button>
                   {categories.map((category) => (
                     <button
                       key={category}
@@ -232,7 +222,7 @@ const Shop = () => {
                 </p>
                 <Button
                   onClick={() => {
-                    setSelectedCategory('All');
+                    setSelectedCategory('Rings');
                     setPriceRange([0, 5000]);
                   }}
                   className="btn-luxury"
