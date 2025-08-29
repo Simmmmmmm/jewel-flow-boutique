@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import { toast } from 'sonner';
+import { useAuth } from './AuthContext';
 
 export interface Product {
   id: string;
@@ -128,28 +129,39 @@ export const useCart = () => {
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
+  const { user } = useAuth();
 
-  // Load cart from localStorage on mount
+  const getUserCartKey = (userEmail: string | null) => 
+    userEmail ? `luxe-jewelry-cart_${userEmail}` : 'luxe-jewelry-cart_guest';
+
+  // Load cart when user changes
   useEffect(() => {
-    const savedCart = localStorage.getItem('luxe-jewelry-cart');
+    // Clear current cart
+    dispatch({ type: 'CLEAR_CART' });
+    
+    const key = getUserCartKey(user?.email || null);
+    const savedCart = localStorage.getItem(key);
     if (savedCart) {
       try {
         const cartData = JSON.parse(savedCart);
-        cartData.items.forEach((item: CartItem) => {
-          for (let i = 0; i < item.quantity; i++) {
-            dispatch({ type: 'ADD_ITEM', payload: item });
-          }
-        });
+        if (cartData.items && Array.isArray(cartData.items)) {
+          cartData.items.forEach((item: CartItem) => {
+            for (let i = 0; i < item.quantity; i++) {
+              dispatch({ type: 'ADD_ITEM', payload: item });
+            }
+          });
+        }
       } catch (error) {
         console.error('Error loading cart from localStorage:', error);
       }
     }
-  }, []);
+  }, [user?.email]);
 
   // Save cart to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem('luxe-jewelry-cart', JSON.stringify(state));
-  }, [state]);
+    const key = getUserCartKey(user?.email || null);
+    localStorage.setItem(key, JSON.stringify(state));
+  }, [state, user?.email]);
 
   const addItem = (product: Product) => {
     dispatch({ type: 'ADD_ITEM', payload: product });

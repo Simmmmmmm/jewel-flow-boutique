@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from './AuthContext';
 
 interface WishlistContextType {
   ids: string[];
@@ -11,22 +12,35 @@ interface WishlistContextType {
 }
 
 const WishlistContext = createContext<WishlistContextType | undefined>(undefined);
-const WISHLIST_KEY = 'wishlist_ids';
 
 export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { toast } = useToast();
+  const { user } = useAuth();
   const [ids, setIds] = useState<string[]>([]);
 
+  const getUserWishlistKey = (userEmail: string | null) => 
+    userEmail ? `wishlist_${userEmail}` : 'wishlist_guest';
+
+  // Load wishlist when user changes
   useEffect(() => {
     try {
-      const saved = JSON.parse(localStorage.getItem(WISHLIST_KEY) || '[]');
-      if (Array.isArray(saved)) setIds(saved);
-    } catch {}
-  }, []);
+      const key = getUserWishlistKey(user?.email || null);
+      const saved = JSON.parse(localStorage.getItem(key) || '[]');
+      if (Array.isArray(saved)) {
+        setIds(saved);
+      } else {
+        setIds([]);
+      }
+    } catch {
+      setIds([]);
+    }
+  }, [user?.email]);
 
+  // Save wishlist when ids change
   useEffect(() => {
-    localStorage.setItem(WISHLIST_KEY, JSON.stringify(ids));
-  }, [ids]);
+    const key = getUserWishlistKey(user?.email || null);
+    localStorage.setItem(key, JSON.stringify(ids));
+  }, [ids, user?.email]);
 
   const add = (productId: string) => {
     setIds((prev) => (prev.includes(productId) ? prev : [...prev, productId]));
