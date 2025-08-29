@@ -32,7 +32,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-gold-400 to-gold-600 rounded-full flex items-center justify-center">
+            <div className="w-8 h-8 bg-gradient-to-br from-cyan-400 to-cyan-600 rounded-full flex items-center justify-center">
               <span className="text-background font-bold text-sm">A</span>
             </div>
             <span className="text-foreground text-xl font-serif font-bold">
@@ -47,7 +47,7 @@ const Header = () => {
                 key={item.name}
                 to={item.href}
                 className={`px-4 py-2 text-sm font-medium rounded-lg transition-all hover:bg-accent hover:text-accent-foreground ${
-                  isActive(item.href) ? 'text-gold-500 bg-gold-900/20' : 'text-foreground'
+                  isActive(item.href) ? 'text-cyan-500 bg-cyan-900/20' : 'text-foreground'
                 }`}
               >
                 {item.name}
@@ -69,7 +69,7 @@ const Header = () => {
                     navigate(`/shop?search=${encodeURIComponent(searchQuery.trim())}`);
                   }
                 }}
-                className="pl-10 pr-4 py-1.5 w-full bg-card border-border focus:border-gold-500 text-sm h-9"
+                className="pl-10 pr-4 py-1.5 w-full bg-card border-border focus:border-cyan-500 text-sm h-9"
               />
             </div>
           </div>
@@ -78,17 +78,17 @@ const Header = () => {
           <div className="flex items-center space-x-1 sm:space-x-3">
             {/* Mobile Search */}
             <button
-              className="lg:hidden p-2 text-muted-foreground hover:text-gold-500 transition-colors"
+              className="lg:hidden p-2 text-muted-foreground hover:text-cyan-500 transition-colors"
               onClick={() => setIsSearchOpen(!isSearchOpen)}
             >
               <Search className="w-5 h-5" />
             </button>
 
             {/* Wishlist */}
-            <Link to="/wishlist" className="relative p-2 text-muted-foreground hover:text-gold-500 transition-colors">
+            <Link to="/wishlist" className="relative p-2 text-muted-foreground hover:text-cyan-500 transition-colors">
               <Heart className="w-5 h-5" />
               {wishlistIds.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-gold-500 text-background text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium animate-scale-in">
+                <span className="absolute -top-1 -right-1 bg-cyan-500 text-background text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium animate-scale-in">
                   {wishlistIds.length}
                 </span>
               )}
@@ -98,13 +98,13 @@ const Header = () => {
             {user ? (
               <button
                 onClick={signOut}
-                className="p-2 text-muted-foreground hover:text-gold-500 transition-colors"
+                className="p-2 text-muted-foreground hover:text-cyan-500 transition-colors"
                 title="Sign out"
               >
                 <LogOut className="w-5 h-5" />
               </button>
             ) : (
-              <Link to="/login" className="p-2 text-muted-foreground hover:text-gold-500 transition-colors">
+              <Link to="/login" className="p-2 text-muted-foreground hover:text-cyan-500 transition-colors">
                 <User className="w-5 h-5" />
               </Link>
             )}
@@ -112,11 +112,11 @@ const Header = () => {
             {/* Cart */}
             <button
               onClick={toggleCart}
-              className="relative p-2 text-muted-foreground hover:text-gold-500 transition-colors"
+              className="relative p-2 text-muted-foreground hover:text-cyan-500 transition-colors"
             >
               <ShoppingBag className="w-5 h-5" />
               {state.itemCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-gold-500 text-background text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium animate-scale-in">
+                <span className="absolute -top-1 -right-1 bg-cyan-500 text-background text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium animate-scale-in">
                   {state.itemCount}
                 </span>
               )}
@@ -124,7 +124,7 @@ const Header = () => {
 
             {/* Mobile Menu Toggle */}
             <button
-              className="md:hidden p-2 text-muted-foreground hover:text-gold-500 transition-colors"
+              className="md:hidden p-2 text-muted-foreground hover:text-cyan-500 transition-colors"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -148,7 +148,7 @@ const Header = () => {
                     setIsSearchOpen(false);
                   }
                 }}
-                className="pl-10 pr-4 py-1.5 w-full bg-card border-border focus:border-gold-500 text-sm"
+                className="pl-10 pr-4 py-1.5 w-full bg-card border-border focus:border-cyan-500 text-sm"
               />
             </div>
           </div>
@@ -162,8 +162,8 @@ const Header = () => {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`block px-4 py-3 text-foreground hover:text-gold-500 hover:bg-accent rounded-lg transition-all ${
-                    isActive(item.href) ? 'text-gold-500 bg-gold-900/20' : ''
+                  className={`block px-4 py-3 text-foreground hover:text-cyan-500 hover:bg-accent rounded-lg transition-all ${
+                    isActive(item.href) ? 'text-cyan-500 bg-cyan-900/20' : ''
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >

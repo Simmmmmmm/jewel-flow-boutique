@@ -1,22 +1,20 @@
 import React from 'react';
 import { X, Plus, Minus, ShoppingBag, Trash2 } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
+import { useNavigate } from 'react-router-dom';
 import { Button } from './ui/button';
 
 const CartSidebar = () => {
   const { state, closeCart, updateQuantity, removeItem, clearCart } = useCart();
+  const navigate = useNavigate();
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    }).format(price);
+    return `₹${price.toLocaleString('en-IN')}`;
   };
 
   const handleCheckout = () => {
-    // Handle checkout logic here
-    console.log('Proceeding to checkout with items:', state.items);
     closeCart();
+    navigate('/checkout-info');
   };
 
   if (!state.isOpen) return null;
