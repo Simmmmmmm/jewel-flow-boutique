@@ -18,6 +18,7 @@ import NotFound from "@/pages/NotFound";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
 import Wishlist from "@/pages/Wishlist";
+import Account from "@/pages/Account";
 import Contact from "@/pages/Contact";
 import CheckoutInfo from "@/pages/CheckoutInfo";
 import OrderSummary from "@/pages/OrderSummary";
@@ -45,6 +46,7 @@ const App = () => (
                     <Route path="/about" element={<About />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/wishlist" element={<Wishlist />} />
+                    <Route path="/account" element={<Account />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/checkout-info" element={<CheckoutInfo />} />

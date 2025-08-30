@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShoppingBag, Search, User, Menu, X, Heart, LogOut } from 'lucide-react';
+import { ShoppingBag, Search, User, Menu, X, Heart } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCart } from '../contexts/CartContext';
 import { Button } from './ui/button';
@@ -14,7 +14,7 @@ const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { ids: wishlistIds } = useWishlist();
-  const { user, signOut } = useAuth();
+  const { user, loading } = useAuth();
 
   const navigation = [
     { name: 'Home', href: '/' },
@@ -96,13 +96,13 @@ const Header = () => {
 
             {/* Account */}
             {user ? (
-              <button
-                onClick={signOut}
+              <Link 
+                to="/account" 
                 className="p-2 text-muted-foreground hover:text-cyan-500 transition-colors"
-                title="Sign out"
+                title="My Account"
               >
-                <LogOut className="w-5 h-5" />
-              </button>
+                <User className="w-5 h-5" />
+              </Link>
             ) : (
               <Link to="/login" className="p-2 text-muted-foreground hover:text-cyan-500 transition-colors">
                 <User className="w-5 h-5" />
