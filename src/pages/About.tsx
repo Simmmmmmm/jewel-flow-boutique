@@ -27,19 +27,19 @@ const About = () => {
 
   const team = [
     {
-      name: 'Elena Rodriguez',
+      name: 'Simran Pawaskar',
       role: 'Master Jeweler',
       experience: '25+ years',
       specialization: 'Diamond Setting'
     },
     {
-      name: 'James Chen',
+      name: 'Sahil Mehta',
       role: 'Design Director',
       experience: '15+ years',
       specialization: 'Contemporary Design'
     },
     {
-      name: 'Sarah Williams',
+      name: 'Nameer Khan',
       role: 'Gemologist',
       experience: '20+ years',
       specialization: 'Precious Stones'
@@ -73,7 +73,7 @@ const About = () => {
             </h2>
             <div className="space-y-4 text-luxury-body leading-relaxed">
               <p>
-                Founded in 2013 by master jeweler Elena Rodriguez, Artlery began as a small 
+                Founded in 2025 by master jeweler Simran Pawaskar, Artlery began as a small 
                 workshop with a simple mission: to create jewelry that tells your unique story. 
                 What started as a passion project has grown into a renowned atelier known for 
                 exceptional craftsmanship and personalized service.

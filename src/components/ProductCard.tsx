@@ -23,26 +23,45 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, className = '' }) =>
   };
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-IN', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'INR',
     }).format(price);
   };
 
   return (
-    <div className={`bg-card border border-border rounded-xl shadow-elegant hover:shadow-luxury transition-all duration-500 group cursor-pointer h-full flex flex-col ${className}`}>
+    <div className={`bg-card border border-border rounded-xl shadow-elegant transition-all duration-500 cursor-pointer h-full flex flex-col ${className}`}>
       <Link to={`/product/${product.id}`} className="flex flex-col h-full">
         {/* Image Container */}
-        <div className="relative aspect-square overflow-hidden bg-muted/50 rounded-t-xl flex-shrink-0">
+        <div className={`relative aspect-square overflow-hidden rounded-t-xl flex-shrink-0 ${
+          product.category === 'Bracelets'
+            ? 'flex items-center justify-center'
+            : ''
+        }`} style={product.category === 'Bracelets' ? {} : { backgroundColor: 'rgb(248 250 252 / 0.5)' }}>
           <img
             src={product.image}
             alt={product.name}
-            className="product-image w-full h-full object-cover"
+            className={`product-image transition-opacity duration-500 ${
+              product.category === 'Bracelets'
+                ? 'w-full h-full object-cover'
+                : 'w-full h-full object-cover'
+            }`}
           />
+          {product.images && product.images.length > 1 && (
+            <img
+              src={product.images[1]}
+              alt={`${product.name} - alternate view`}
+              className={`product-image absolute inset-0 opacity-100 transition-opacity duration-500 ${
+                product.category === 'Bracelets'
+                  ? 'w-full h-full object-cover'
+                  : 'w-full h-full object-cover'
+              }`}
+            />
+          )}
           
           {/* Wishlist Button */}
           <button
-            className="absolute top-4 right-4 p-2 bg-background/80 backdrop-blur-sm rounded-full shadow-elegant opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
+            className="absolute top-4 right-4 p-2 bg-background/80 backdrop-blur-sm rounded-full shadow-elegant opacity-100 transition-all duration-300 hover:scale-110"
             aria-label={wished ? 'Remove from wishlist' : 'Add to wishlist'}
             onClick={(e) => {
               e.preventDefault();
@@ -57,7 +76,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, className = '' }) =>
           </button>
 
           {/* Quick Add Button */}
-          <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+          <div className="absolute bottom-4 left-4 right-4 opacity-100 transition-all duration-300 transform translate-y-0">
             <Button
               onClick={handleAddToCart}
               className="w-full btn-luxury text-sm py-2"

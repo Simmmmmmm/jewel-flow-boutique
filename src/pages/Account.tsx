@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 
@@ -16,7 +16,6 @@ interface UserProfile {
   first_name: string | null;
   last_name: string | null;
   phone: string | null;
-  date_of_birth: string | null;
   avatar_url: string | null;
   created_at: string;
   updated_at: string;
@@ -39,8 +38,10 @@ interface Address {
   phone: string | null;
 }
 
+const API_BASE_URL = 'http://localhost:4000/api';
+
 const Account: React.FC = () => {
-  const { user, signOut } = useAuth();
+  const { user, token, signOut } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -50,8 +51,7 @@ const Account: React.FC = () => {
   const [profileForm, setProfileForm] = useState({
     first_name: '',
     last_name: '',
-    phone: '',
-    date_of_birth: ''
+    phone: ''
   });
 
   const [addressForm, setAddressForm] = useState({
@@ -81,41 +81,40 @@ const Account: React.FC = () => {
   }, [user, navigate]);
 
   const loadUserData = async () => {
-    if (!user?.id) return;
+    if (!user?.id || !token) return;
 
     try {
       setLoading(true);
       
       // Load profile
-      const { data: profileData, error: profileError } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('user_id', user.id)
-        .single();
+      const profileResponse = await fetch(`${API_BASE_URL}/profile/${user.id}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
 
-      if (profileError && profileError.code !== 'PGRST116') {
-        throw profileError;
-      }
-
-      if (profileData) {
-        setProfile(profileData);
+      if (profileResponse.ok) {
+        const profileData = await profileResponse.json();
+        setProfile(profileData.profile);
         setProfileForm({
-          first_name: profileData.first_name || '',
-          last_name: profileData.last_name || '',
-          phone: profileData.phone || '',
-          date_of_birth: profileData.date_of_birth || ''
+          first_name: profileData.profile.first_name || '',
+          last_name: profileData.profile.last_name || '',
+          phone: profileData.profile.phone || ''
         });
       }
 
       // Load addresses
-      const { data: addressData, error: addressError } = await supabase
-        .from('addresses')
-        .select('*')
-        .eq('user_id', user.id)
-        .order('is_default', { ascending: false });
+      const addressesResponse = await fetch(`${API_BASE_URL}/addresses/${user.id}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
 
-      if (addressError) throw addressError;
-      setAddresses(addressData || []);
+      if (addressesResponse.ok) {
+        const addressData = await addressesResponse.json();
+        // Keep only first two addresses
+        setAddresses((addressData.addresses || []).slice(0, 2));
+      }
       
     } catch (error) {
       console.error('Error loading user data:', error);
@@ -127,22 +126,27 @@ const Account: React.FC = () => {
 
   const handleProfileUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!user?.id) return;
+    if (!user?.id || !token) return;
 
     try {
       setSaving(true);
-      const { error } = await supabase
-        .from('profiles')
-        .upsert({
-          user_id: user.id,
-          email: user.email || '',
-          ...profileForm
-        });
+    const response = await fetch(`${API_BASE_URL}/profile`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ user_id: user.id, ...profileForm })
+    });
 
-      if (error) throw error;
-      
-      toast.success('Profile updated successfully');
-      loadUserData();
+    if (!response.ok) {
+      throw new Error('Failed to update profile');
+    }
+
+    const data = await response.json();
+
+    toast.success('Profile updated successfully');
+    setProfile(data.profile);
     } catch (error) {
       console.error('Error updating profile:', error);
       toast.error('Failed to update profile');
@@ -153,35 +157,41 @@ const Account: React.FC = () => {
 
   const handleAddressSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!user?.id) return;
+    if (!user?.id || !token) return;
 
     try {
       setSaving(true);
-      const { error } = await supabase
-        .from('addresses')
-        .insert({
-          user_id: user.id,
-          ...addressForm
-        });
+    const response = await fetch(`${API_BASE_URL}/addresses`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ user_id: user.id, ...addressForm })
+    });
 
-      if (error) throw error;
-      
-      toast.success('Address added successfully');
-      setAddressForm({
-        type: 'shipping',
-        is_default: false,
-        first_name: '',
-        last_name: '',
-        company: '',
-        address_line_1: '',
-        address_line_2: '',
-        city: '',
-        state: '',
-        postal_code: '',
-        country: 'US',
-        phone: ''
-      });
-      loadUserData();
+    if (!response.ok) {
+      throw new Error('Failed to add address');
+    }
+
+    const data = await response.json();
+
+    toast.success('Address added successfully');
+    setAddressForm({
+      type: 'shipping',
+      is_default: false,
+      first_name: '',
+      last_name: '',
+      company: '',
+      address_line_1: '',
+      address_line_2: '',
+      city: '',
+      state: '',
+      postal_code: '',
+      country: 'US',
+      phone: ''
+    });
+    setAddresses(prev => [...prev, data.address]);
     } catch (error) {
       console.error('Error adding address:', error);
       toast.error('Failed to add address');
@@ -190,8 +200,8 @@ const Account: React.FC = () => {
     }
   };
 
-  const handleSignOut = async () => {
-    await signOut();
+  const handleSignOut = () => {
+    signOut();
     navigate('/');
   };
 
@@ -283,16 +293,6 @@ const Account: React.FC = () => {
                     />
                   </div>
 
-                  <div>
-                    <Label htmlFor="date_of_birth">Date of Birth</Label>
-                    <Input
-                      id="date_of_birth"
-                      type="date"
-                      value={profileForm.date_of_birth}
-                      onChange={(e) => setProfileForm(prev => ({ ...prev, date_of_birth: e.target.value }))}
-                    />
-                  </div>
-
                   <Button type="submit" disabled={saving}>
                     {saving ? 'Saving...' : 'Save Changes'}
                   </Button>
@@ -311,30 +311,47 @@ const Account: React.FC = () => {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      {addresses.map((address) => (
-                        <div key={address.id} className="border rounded-lg p-4">
-                          <div className="flex items-center justify-between mb-2">
-                            <span className="font-medium capitalize">{address.type} Address</span>
-                            {address.is_default && (
-                              <span className="bg-primary text-primary-foreground text-xs px-2 py-1 rounded">
-                                Default
-                              </span>
-                            )}
+                      {(() => {
+                        // Filter addresses to remove duplicates if shipping and billing are same
+                        const uniqueAddresses: Address[] = [];
+                        addresses.forEach(addr => {
+                          const isDuplicate = uniqueAddresses.some(existing => 
+                            existing.address_line_1 === addr.address_line_1 &&
+                            existing.address_line_2 === addr.address_line_2 &&
+                            existing.city === addr.city &&
+                            existing.state === addr.state &&
+                            existing.postal_code === addr.postal_code &&
+                            existing.country === addr.country
+                          );
+                          if (!isDuplicate) {
+                            uniqueAddresses.push(addr);
+                          }
+                        });
+                        return uniqueAddresses.map(address => (
+                          <div key={address.id} className="border rounded-lg p-4">
+                            <div className="flex items-center justify-between mb-2">
+                              <span className="font-medium capitalize">{address.type} Address</span>
+                              {address.is_default && (
+                                <span className="bg-primary text-primary-foreground text-xs px-2 py-1 rounded">
+                                  Default
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-sm text-muted-foreground">
+                              {address.first_name} {address.last_name}
+                              {address.company && <><br />{address.company}</>}
+                              <br />
+                              {address.address_line_1}
+                              {address.address_line_2 && <><br />{address.address_line_2}</>}
+                              <br />
+                              {address.city}, {address.state} {address.postal_code}
+                              <br />
+                              {address.country}
+                              {address.phone && <><br />Phone: {address.phone}</>}
+                            </p>
                           </div>
-                          <p className="text-sm text-muted-foreground">
-                            {address.first_name} {address.last_name}
-                            {address.company && <><br />{address.company}</>}
-                            <br />
-                            {address.address_line_1}
-                            {address.address_line_2 && <><br />{address.address_line_2}</>}
-                            <br />
-                            {address.city}, {address.state} {address.postal_code}
-                            <br />
-                            {address.country}
-                            {address.phone && <><br />Phone: {address.phone}</>}
-                          </p>
-                        </div>
-                      ))}
+                        ));
+                      })()}
                     </div>
                   </CardContent>
                 </Card>
@@ -461,15 +478,306 @@ const Account: React.FC = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground text-center py-8">
-                  No orders found. Start shopping to see your orders here!
-                </p>
+                {user?.id && token ? (
+                  <UserOrders userId={user.id} token={token} />
+                ) : (
+                  <div className="text-center py-8">
+                    <p className="text-muted-foreground mb-4">
+                      {loading ? 'Loading orders...' : 'Unable to load orders. Please try again.'}
+                    </p>
+                    {!loading && (
+                      <Button onClick={() => navigate('/orders')}>
+                        View All Orders
+                      </Button>
+                    )}
+                  </div>
+                )}
               </CardContent>
             </Card>
           </TabsContent>
         </Tabs>
       </div>
     </div>
+  );
+};
+
+interface Order {
+  id?: string;
+  orderId?: string;
+  items?: Array<{
+    id?: string;
+    name?: string;
+    price?: number;
+    quantity?: number;
+    image?: string;
+  }>;
+  shipping_info?: {
+    full_name?: string;
+    email?: string;
+    phone?: string;
+    address?: string;
+    city?: string;
+    postal_code?: string;
+    state?: string;
+  };
+  subtotal?: number;
+  delivery_charge?: number;
+  total?: number;
+  status?: 'pending' | 'confirmed' | 'shipped' | 'delivered' | 'cancelled';
+  payment_method?: string;
+  payment_status?: 'pending' | 'paid' | 'failed';
+  order_date?: string;
+  created_at?: string;
+  date?: string;
+  updated_at?: string;
+}
+
+const UserOrders: React.FC<{ userId: string | undefined; token: string }> = ({ userId, token }) => {
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const [detailsOpen, setDetailsOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        console.log('Fetching orders for userId:', userId);
+        const response = await fetch(`http://localhost:4000/api/user/orders/${userId}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        console.log('Orders response status:', response.status);
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Orders data received:', data);
+          setOrders(data.orders || []);
+        } else {
+          console.error('Failed to fetch orders:', response.status, response.statusText);
+          const errorData = await response.text();
+          console.error('Error response:', errorData);
+        }
+      } catch (error) {
+        console.error('Error fetching orders:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (userId) {
+      fetchOrders();
+    } else {
+      console.log('No userId provided, skipping order fetch');
+      setLoading(false);
+    }
+  }, [userId, token]);
+
+  const formatPrice = (price: number) => {
+    return `₹${price.toLocaleString('en-IN')}`;
+  };
+
+  const formatDate = (dateString: string) => {
+    try {
+      if (!dateString) return 'Date not available';
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) return 'Invalid date';
+      return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+    } catch (error) {
+      console.error('Error formatting date:', error);
+      return 'Date not available';
+    }
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'pending':
+        return 'bg-yellow-100 text-yellow-800';
+      case 'confirmed':
+        return 'bg-blue-100 text-blue-800';
+      case 'shipped':
+        return 'bg-purple-100 text-purple-800';
+      case 'delivered':
+        return 'bg-green-100 text-green-800';
+      case 'cancelled':
+        return 'bg-red-100 text-red-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="text-center py-8">
+        <p className="text-muted-foreground mb-4">Loading your orders...</p>
+      </div>
+    );
+  }
+
+  if (orders.length === 0) {
+    return (
+      <div className="text-center py-8">
+        <p className="text-muted-foreground mb-4">You have no orders yet.</p>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <div className="space-y-6">
+        {orders.map((order, index) => {
+          // Safety check for order object
+          if (!order || typeof order !== 'object') {
+            console.error('Invalid order object:', order);
+            return null;
+          }
+
+          const orderId = order.id || order.orderId || `order-${index}`;
+          const orderDate = order.order_date || order.created_at || order.date;
+          const orderTotal = typeof order.total === 'number' ? order.total : 0;
+          const orderStatus = order.status || 'pending';
+          const orderItems = Array.isArray(order.items) ? order.items : [];
+
+          return (
+            <div key={orderId} className="border rounded-lg p-4 shadow-elegant">
+              <div className="flex items-center justify-between mb-2">
+                <div>
+                  <p className="font-semibold">Order #{orderId}</p>
+                  <p className="text-sm text-muted-foreground">{formatDate(orderDate)}</p>
+                </div>
+                <div>
+                  <p className="font-semibold">{formatPrice(orderTotal)}</p>
+                  <p className={`inline-block px-2 py-1 rounded text-xs font-semibold ${getStatusColor(orderStatus)}`}>
+                    {orderStatus.charAt(0).toUpperCase() + orderStatus.slice(1)}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center justify-between mt-4">
+                <div className="flex space-x-4 overflow-x-auto">
+                  {orderItems.slice(0, 3).map((item, itemIndex) => {
+                    if (!item || typeof item !== 'object') return null;
+
+                    const itemId = item.id || `item-${itemIndex}`;
+                    const itemName = item.name || 'Product';
+                    const itemImage = item.image || '';
+
+                    return (
+                      <img
+                        key={itemId}
+                        src={itemImage}
+                        alt={itemName}
+                        className="w-16 h-16 rounded-lg object-cover"
+                        onError={(e) => {
+                          // Hide broken images
+                          e.currentTarget.style.display = 'none';
+                        }}
+                      />
+                    );
+                  })}
+                  {orderItems.length > 3 && (
+                    <div className="w-16 h-16 flex items-center justify-center bg-gold-100 rounded-lg text-gold-600 font-semibold">
+                      +{orderItems.length - 3}
+                    </div>
+                  )}
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    setSelectedOrder(order);
+                    setDetailsOpen(true);
+                  }}
+                >
+                  View Details
+                </Button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <Dialog open={detailsOpen} onOpenChange={setDetailsOpen}>
+        <DialogContent className="max-w-3xl">
+          <DialogHeader>
+            <DialogTitle>Order Details</DialogTitle>
+          </DialogHeader>
+          {selectedOrder ? (
+            <div className="space-y-4">
+              <div>
+                <h3 className="font-semibold text-lg">Order #{selectedOrder.id || selectedOrder.orderId}</h3>
+                <p>Date: {formatDate(selectedOrder.order_date || selectedOrder.created_at || selectedOrder.date)}</p>
+                <p>Status: {selectedOrder.status}</p>
+                <p>Total: {formatPrice(selectedOrder.total || 0)}</p>
+              </div>
+              <div>
+                <h4 className="font-semibold">Items:</h4>
+                <ul className="list-disc list-inside max-h-48 overflow-y-auto">
+                  {selectedOrder.items && selectedOrder.items.length > 0 ? (
+                    selectedOrder.items.map((item, idx) => (
+                      <li key={item.id || idx}>
+                        {item.name} - {item.quantity} x {formatPrice(item.price || 0)}
+                      </li>
+                    ))
+                  ) : (
+                    <li>No items found</li>
+                  )}
+                </ul>
+              </div>
+              <div>
+                <h4 className="font-semibold">Shipping Info:</h4>
+                {selectedOrder.shipping_info ? (
+                  <div>
+                    <p>{selectedOrder.shipping_info.full_name}</p>
+                    <p>{selectedOrder.shipping_info.address}</p>
+                    <p>
+                      {selectedOrder.shipping_info.city}, {selectedOrder.shipping_info.state}{' '}
+                      {selectedOrder.shipping_info.postal_code}
+                    </p>
+                    <p>{selectedOrder.shipping_info.phone}</p>
+                    <p>{selectedOrder.shipping_info.email}</p>
+                  </div>
+                ) : (
+                  <p>No shipping info available</p>
+                )}
+              </div>
+              <div>
+                <h4 className="font-semibold">Payment Info:</h4>
+                <p>Method: {selectedOrder.payment_method || 'N/A'}</p>
+                <p>Status: {selectedOrder.payment_status || 'N/A'}</p>
+              </div>
+              <div>
+                <h4 className="font-semibold">Order Summary:</h4>
+                <div className="space-y-2">
+                  <div className="flex justify-between">
+                    <span>Subtotal:</span>
+                    <span>{formatPrice(selectedOrder.subtotal || 0)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Delivery Charge:</span>
+                    <span>{formatPrice(selectedOrder.delivery_charge || 0)}</span>
+                  </div>
+                  <div className="flex justify-between font-semibold border-t pt-2">
+                    <span>Total:</span>
+                    <span>{formatPrice(selectedOrder.total || 0)}</span>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-4 flex justify-end">
+                <Button onClick={() => setDetailsOpen(false)}>Close</Button>
+              </div>
+            </div>
+          ) : (
+            <p>No order selected</p>
+          )}
+        </DialogContent>
+      </Dialog>
+    </>
   );
 };
 

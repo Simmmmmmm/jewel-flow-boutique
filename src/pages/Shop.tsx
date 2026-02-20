@@ -98,7 +98,7 @@ const Shop = () => {
               <div className="mb-6">
                 <h4 className="text-luxury-heading font-medium mb-3">Categories</h4>
                 <div className="space-y-2">
-                  {categories.map((category) => (
+                  {categories.filter(cat => cat !== 'Watches').map((category) => (
                     <button
                       key={category}
                       onClick={() => setSelectedCategory(category)}
@@ -119,42 +119,42 @@ const Shop = () => {
                 <h4 className="text-luxury-heading font-medium mb-3">Price Range</h4>
                 <div className="space-y-3">
                   <div className="flex items-center space-x-2 text-sm text-luxury-body">
-                    <span>${priceRange[0]}</span>
+                    <span>₹{priceRange[0]}</span>
                     <span>-</span>
-                    <span>${priceRange[1]}</span>
+                    <span>₹{priceRange[1]}</span>
                   </div>
                   <div className="grid grid-cols-2 gap-2">
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => setPriceRange([0, 1000])}
-                      className={priceRange[1] === 1000 ? 'bg-gold-100' : ''}
+                      onClick={() => setPriceRange([0, 5000])}
+                      className={priceRange[1] === 5000 ? 'bg-gold-100' : ''}
                     >
-                      Under $1K
+                      Under ₹5K
                     </Button>
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => setPriceRange([1000, 2000])}
-                      className={priceRange[0] === 1000 && priceRange[1] === 2000 ? 'bg-gold-100' : ''}
+                      onClick={() => setPriceRange([5001, 10000])}
+                      className={priceRange[0] === 5000 && priceRange[1] === 8000 ? 'bg-gold-100' : ''}
                     >
-                      $1K - $2K
+                      ₹5K - ₹10K
                     </Button>
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => setPriceRange([2000, 3000])}
-                      className={priceRange[0] === 2000 && priceRange[1] === 3000 ? 'bg-gold-100' : ''}
+                      onClick={() => setPriceRange([10001, 15000])}
+                      className={priceRange[0] === 8000 && priceRange[1] === 12000 ? 'bg-gold-100' : ''}
                     >
-                      $2K - $3K
+                      ₹10K - ₹15K
                     </Button>
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => setPriceRange([3000, 5000])}
-                      className={priceRange[0] === 3000 ? 'bg-gold-100' : ''}
+                      onClick={() => setPriceRange([15001, 23000])}
+                      className={priceRange[0] === 23000 ? 'bg-gold-100' : ''}
                     >
-                      $3K+
+                      ₹15K+
                     </Button>
                   </div>
                 </div>

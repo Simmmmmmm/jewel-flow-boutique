@@ -1,17 +1,42 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/contexts/AuthContext';
 import { Mail, MapPin, Phone } from 'lucide-react';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import L from 'leaflet';
+
+
+delete (L.Icon.Default.prototype as any)._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+});
 
 const Contact: React.FC = () => {
   const { toast } = useToast();
+  const { user, token } = useAuth();
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
+
+  // Redirect to login if user is not authenticated
+  useEffect(() => {
+    if (!user) {
+      navigate('/login', { state: { from: '/contact' } });
+    } else {
+      // Pre-populate form with user data
+      setName(user.email.split('@')[0]); // Use email prefix as name
+      setEmail(user.email);
+    }
+  }, [user, navigate]);
 
   useEffect(() => {
     document.title = 'Contact Us | Artlery';
@@ -26,7 +51,7 @@ const Contact: React.FC = () => {
         {
           '@type': 'ContactPoint',
           contactType: 'customer support',
-          email: 'support@luxe-jewelry.example'
+          email: 'simmmmmm.03@gmail.com'
         }
       ]
     };
@@ -41,18 +66,52 @@ const Contact: React.FC = () => {
 
   const isValid = useMemo(() => name && email && message, [name, email, message]);
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isValid) return;
+    if (!isValid || !token) return;
+
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const response = await fetch('http://localhost:4000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          subject,
+          message
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
+
+      const result = await response.json();
+
+      // Clear form
       setName('');
       setEmail('');
       setSubject('');
       setMessage('');
-      toast({ title: 'Message sent', description: 'Thanks for reaching out. We will get back to you shortly.' });
-    }, 700);
+
+      toast({
+        title: 'Message sent',
+        description: 'Thanks for reaching out. We will get back to you shortly.'
+      });
+    } catch (error) {
+      console.error('Error sending message:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to send message. Please try again.',
+        variant: 'destructive'
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -74,7 +133,10 @@ const Contact: React.FC = () => {
                 <Input value={name} onChange={(e) => setName(e.target.value)} required className="mt-1" />
               </div>
               <div>
-                <label className="text-sm text-luxury-body">Email</label>
+                <label className="text-sm text-luxury-body flex items-center gap-1">
+                  <Mail className="w-4 h-4" />
+                  Email
+                </label>
                 <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required className="mt-1" />
               </div>
             </div>
@@ -96,13 +158,25 @@ const Contact: React.FC = () => {
           <div className="bg-card border border-border rounded-xl shadow-elegant p-6">
             <h3 className="text-luxury-heading text-xl font-serif font-semibold mb-4">Contact Information</h3>
             <ul className="space-y-3 text-luxury-body">
-              <li className="flex items-start gap-3"><Mail className="w-5 h-5 text-primary mt-0.5" /> support@luxe-jewelry.example</li>
-              <li className="flex items-start gap-3"><Phone className="w-5 h-5 text-primary mt-0.5" /> +1 (000) 000-0000</li>
-              <li className="flex items-start gap-3"><MapPin className="w-5 h-5 text-primary mt-0.5" /> 123 Luxury Ave, Suite 100, New York, NY</li>
+              <li className="flex items-start gap-3"><Mail className="w-5 h-5 text-primary mt-0.5" /> simmmmmm.03@gmail.com</li>
+              <li className="flex items-start gap-3"><Phone className="w-5 h-5 text-primary mt-0.5" /> 9137953753</li>
+              <li className="flex items-start gap-3"><MapPin className="w-5 h-5 text-primary mt-0.5" /> BKC, Mumbai, India</li>
             </ul>
           </div>
           <div className="bg-card border border-border rounded-xl shadow-elegant p-3 overflow-hidden">
-            <div className="aspect-[4/3] w-full bg-muted/50 grid place-items-center text-luxury-body">Map placeholder</div>
+            <div className="aspect-[4/3] w-full">
+              <MapContainer center={[19.0619, 72.8567]} zoom={13} style={{ height: '100%', width: '100%' }}>
+                <TileLayer
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  
+                />
+                <Marker position={[19.0619, 72.8567]}>
+                  <Popup>
+                    BKC, Mumbai, India
+                  </Popup>
+                </Marker>
+              </MapContainer>
+            </div>
           </div>
         </aside>
       </main>

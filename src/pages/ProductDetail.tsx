@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Heart, Star, Shield, Truck, RotateCcw, ShoppingBag } from 'lucide-react';
 import { products } from '../data/products';
 import { useCart } from '../contexts/CartContext';
+import { useWishlist } from '../contexts/WishlistContext';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
 import ProductCard from '../components/ProductCard';
@@ -10,6 +11,7 @@ import ProductCard from '../components/ProductCard';
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const { addItem } = useCart();
+  const { toggle, isWishlisted } = useWishlist();
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
@@ -30,9 +32,9 @@ const ProductDetail = () => {
   }
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-IN', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'INR',
     }).format(price);
   };
 
@@ -42,12 +44,12 @@ const ProductDetail = () => {
     }
   };
 
-  // For demo purposes, using the same image multiple times
-  const productImages = [product.image, product.image, product.image];
+  // Use the product's images array for product images
+  const productImages = product.images && product.images.length > 0 ? product.images : [product.image];
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Breadcrumb */}
+      {/* Breadcrumb */}  
       <div className="bg-card border-b border-border shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center space-x-2 text-sm">
@@ -194,8 +196,10 @@ const ProductDetail = () => {
                 <Button
                   variant="outline"
                   className="p-3 border-gold-300 hover:bg-gold-50"
+                  onClick={() => toggle(product.id)}
+                  aria-label={isWishlisted(product.id) ? 'Remove from wishlist' : 'Add to wishlist'}
                 >
-                  <Heart className="w-5 h-5 text-gold-600" />
+                  <Heart className={`w-5 h-5 ${isWishlisted(product.id) ? 'text-gold-600' : 'text-luxury-gray'}`} />
                 </Button>
               </div>
             </div>

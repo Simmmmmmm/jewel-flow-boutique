@@ -5,6 +5,16 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { CheckCircle, Download, Home } from 'lucide-react';
 
+interface PaymentDetails {
+  method: string;
+  cardNumber?: string;
+  cardName?: string;
+  expiryDate?: string;
+  cvv?: string;
+  upiId?: string;
+  onlineBankingDetails?: string;
+}
+
 interface OrderData {
   id: string;
   items: Array<{
@@ -28,6 +38,7 @@ interface OrderData {
   total: number;
   orderDate: string;
   paymentMethod: string;
+  paymentDetails?: PaymentDetails;
 }
 
 const Invoice = () => {
@@ -58,7 +69,17 @@ const Invoice = () => {
   };
 
   const handleDownloadInvoice = () => {
+    // Remove header and footer for printing
+    const header = document.querySelector('header');
+    const footer = document.querySelector('footer');
+    if (header) header.style.display = 'none';
+    if (footer) footer.style.display = 'none';
+
     window.print();
+
+    // Restore header and footer after printing
+    if (header) header.style.display = '';
+    if (footer) footer.style.display = '';
   };
 
   const handleContinueShopping = () => {
@@ -119,8 +140,36 @@ const Invoice = () => {
                 </div>
               </div>
               <div>
-                <h3 className="font-semibold mb-2">Payment Method:</h3>
-                <p className="text-sm text-muted-foreground">{orderData.paymentMethod}</p>
+                <h3 className="font-semibold mb-2">Payment Information:</h3>
+                <div className="space-y-2">
+                  {orderData.paymentMethod === 'Razorpay' ? (
+                    <div className="p-3 bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-800 rounded-lg">
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <span className="font-medium text-green-700 dark:text-green-300">Online Payment (Razorpay)</span>
+                      </div>
+                      <p className="text-sm text-green-600 dark:text-green-400">
+                        ✓ Payment completed successfully via Razorpay
+                      </p>
+                      <p className="text-xs text-green-500 dark:text-green-500 mt-1">
+                        Transaction ID will be sent to your email
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="p-3 bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-800 rounded-lg">
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                        <span className="font-medium text-blue-700 dark:text-blue-300">Cash on Delivery (COD)</span>
+                      </div>
+                      <p className="text-sm text-blue-600 dark:text-blue-400">
+                        Payment will be collected at the time of delivery
+                      </p>
+                      <p className="text-xs text-blue-500 dark:text-blue-500 mt-1">
+                        Please keep exact change ready
+                      </p>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 

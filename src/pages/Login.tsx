@@ -3,12 +3,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
+import { Eye, EyeOff } from 'lucide-react';
 
 const Login: React.FC = () => {
   const { signIn } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -20,6 +22,23 @@ const Login: React.FC = () => {
     setLoading(true);
     try {
       await signIn(email, password);
+      // Check if profile is complete and redirect accordingly
+      const token = localStorage.getItem('token');
+      if (token) {
+        const response = await fetch('http://localhost:4000/api/profile', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (response.ok) {
+          const profile = await response.json();
+          const isComplete = profile.first_name && profile.last_name && profile.phone;
+          if (!isComplete) {
+            navigate('/profile-setup');
+            return;
+          }
+        }
+      }
       navigate('/');
     } catch {
       // handled in context toast
@@ -51,14 +70,23 @@ const Login: React.FC = () => {
           
           <div className="space-y-2">
             <label className="text-sm font-medium text-foreground">Password</label>
-            <Input 
-              type="password" 
-              value={password} 
-              onChange={(e) => setPassword(e.target.value)} 
-              required 
-              className="h-12 bg-background/50 border-border focus:border-primary transition-colors" 
-              placeholder="Enter your password"
-            />
+            <div className="relative">
+              <Input
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="h-12 bg-background/50 border-border focus:border-primary transition-colors pr-10"
+                placeholder="Enter your password"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
           </div>
           
           <Button type="submit" className="w-full h-12 btn-luxury text-base font-medium" disabled={loading}>

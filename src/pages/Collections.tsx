@@ -5,10 +5,10 @@ import { Button } from '../components/ui/button';
 import { categories, products } from '../data/products';
 
 const Collections = () => {
-  const collections = categories.map(category => {
+  const collections = categories.filter(cat => cat !== 'Watches').map(category => {
     const categoryProducts = products.filter(p => p.category === category);
     const featuredProduct = categoryProducts[0];
-    
+
     return {
       name: category,
       description: `Discover our exquisite ${category.toLowerCase()} collection`,
@@ -22,9 +22,9 @@ const Collections = () => {
   });
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-IN', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'INR',
     }).format(price);
   };
 

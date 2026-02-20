@@ -8,13 +8,13 @@ const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 overflow-hidden">
         <img
           src={heroImage}
           alt="Luxury Jewelry Collection"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-luxury-black/60 via-luxury-black/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/70 to-black/60" />
       </div>
 
       {/* Content */}
@@ -29,33 +29,34 @@ const Hero = () => {
           </div>
 
           {/* Heading */}
-          <h1 className="text-foreground font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 animate-fade-in">
+          <h1 className="text-[#F5E6D3] font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 animate-fade-in drop-shadow-lg">
             Exquisite
-            <span className="block text-transparent bg-gradient-to-r from-gold-400 to-gold-600 bg-clip-text">
+            <span className="block text-[#FFFFFF] drop-shadow-xl">
               Jewelry
             </span>
             Collection
           </h1>
 
           {/* Description */}
-          <p className="text-muted-foreground text-base sm:text-lg md:text-xl leading-relaxed mb-8 animate-fade-in">
-            Discover our curated collection of handcrafted jewelry pieces. 
+          <p className="text-[#FFFFFF] text-base sm:text-lg md:text-xl leading-relaxed mb-8 animate-fade-in drop-shadow-md">
+            Discover our curated collection of handcrafted jewelry pieces.
             Each item tells a story of elegance, craftsmanship, and timeless beauty.
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 animate-fade-in">
             <Link to="/shop">
-              <Button variant="luxury" className="px-8 py-4 text-lg group">
+              <Button
+                className="bg-[#4B2E2E] hover:bg-[#3A2323] text-[#FFFFFF] px-8 py-4 text-lg group font-semibold rounded-lg transition-all duration-300 ease-out drop-shadow-lg hover:drop-shadow-xl"
+              >
                 Shop Collection
                 <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Link>
-            
+
             <Link to="/collections">
               <Button
-                variant="outline-luxury"
-                className="px-8 py-4 text-lg"
+                className="border-2 border-[#4B2E2E] text-[#4B2E2E] hover:bg-[#4B2E2E] hover:text-[#FFFFFF] px-8 py-4 text-lg font-semibold rounded-lg transition-all duration-300 ease-out drop-shadow-lg hover:drop-shadow-xl"
               >
                 View Collections
               </Button>
